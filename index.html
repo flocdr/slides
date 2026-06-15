@@ -33,6 +33,14 @@
       color: var(--text-muted);
       margin: 0 0 2.5em 0;
     }
+    .org-eyebrow {
+      font-size: 0.8em;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.8em 0;
+    }
     .deck-link {
       display: block;
       text-decoration: none;
@@ -40,14 +48,36 @@
       margin-bottom: 16px;
     }
     .deck-link .card {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius-lg);
       padding: 24px;
       background: var(--bg-alt);
-      transition: border-color 0.15s ease;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
     }
     .deck-link:hover .card {
       border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .deck-link .card-icon {
+      flex: none;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      border-radius: var(--radius-md);
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .deck-link .card-body {
+      flex: 1;
+      min-width: 0;
     }
     .deck-link h2 {
       font-size: 1.2em;
@@ -61,6 +91,20 @@
       margin: 0;
       color: var(--text-muted);
       font-size: 0.95em;
+    }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.8em;
+      color: var(--text-muted);
+    }
+    .card-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
     .badge {
       font-size: 0.6em;
@@ -94,6 +138,10 @@
   </div>
 
   <div class="wrap">
+    <p class="org-eyebrow" lang="fr">Eiffage Génie Civil — Pôle International et Marine</p>
+    <p class="org-eyebrow" lang="en">Eiffage Génie Civil — International &amp; Marine Division</p>
+    <p class="org-eyebrow" lang="es">Eiffage Génie Civil — División Internacional y Marítima</p>
+
     <h1 lang="fr">Présentations</h1>
     <h1 lang="en">Presentations</h1>
     <h1 lang="es">Presentaciones</h1>
@@ -108,19 +156,29 @@
 
     <a class="deck-link" href="powerbi/slides/index.protected.html">
       <div class="card">
-        <h2>
-          <span lang="fr">Introduction à Power BI</span>
-          <span lang="en">Introduction to Power BI</span>
-          <span lang="es">Introducción a Power BI</span>
-          <span class="badge">
-            <span lang="fr">🔒 Protégé</span>
-            <span lang="en">🔒 Protected</span>
-            <span lang="es">🔒 Protegido</span>
-          </span>
-        </h2>
-        <p lang="fr">Formation interne (4h) — bases de Power BI orientées robustesse d'entreprise : Power Query, modèle de données, rapports, publication.</p>
-        <p lang="en">Internal training (4h) — Power BI basics focused on enterprise-grade robustness: Power Query, data model, reports, publishing.</p>
-        <p lang="es">Formación interna (4h) — fundamentos de Power BI orientados a la robustez empresarial: Power Query, modelo de datos, informes, publicación.</p>
+        <div class="card-icon" aria-hidden="true">📊</div>
+        <div class="card-body">
+          <h2>
+            <span lang="fr">Introduction à Power BI</span>
+            <span lang="en">Introduction to Power BI</span>
+            <span lang="es">Introducción a Power BI</span>
+            <span class="badge">
+              <span lang="fr">🔒 Protégé</span>
+              <span lang="en">🔒 Protected</span>
+              <span lang="es">🔒 Protegido</span>
+            </span>
+          </h2>
+          <p lang="fr">Formation interne (4h) — bases de Power BI orientées robustesse d'entreprise : Power Query, modèle de données, rapports, publication.</p>
+          <p lang="en">Internal training (4h) — Power BI basics focused on enterprise-grade robustness: Power Query, data model, reports, publishing.</p>
+          <p lang="es">Formación interna (4h) — fundamentos de Power BI orientados a la robustez empresarial: Power Query, modelo de datos, informes, publicación.</p>
+          <div class="card-meta">
+            <span>📅 2026</span>
+            <span>⏱️ 4h</span>
+            <span lang="fr">📑 28 diapositives</span>
+            <span lang="en">📑 28 slides</span>
+            <span lang="es">📑 28 diapositivas</span>
+          </div>
+        </div>
       </div>
     </a>
   </div>
