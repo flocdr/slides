@@ -73,46 +73,102 @@
       padding: 3px 10px;
       background: var(--bg);
     }
-    .theme-switch {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--bg-alt);
-      color: var(--text-muted);
-      font-size: 14px;
-      padding: 6px 10px;
-      cursor: pointer;
-      font-family: var(--font-sans);
-    }
   </style>
 </head>
 <body>
-  <button type="button" class="theme-switch" data-toggle-theme aria-label="Basculer le mode sombre / Toggle dark mode">🌙</button>
+  <div class="deck-controls">
+    <div class="lang-switch" role="group" aria-label="Langue / Language / Idioma">
+      <button type="button" data-set-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-set-lang="es" aria-pressed="false">ES</button>
+    </div>
+    <button type="button" class="theme-switch" data-toggle-theme aria-label="Basculer le mode sombre / Toggle dark mode">🌙</button>
+    <div class="detail-switch" role="group" aria-label="Niveau de détail / Detail level / Nivel de detalle">
+      <button type="button" data-set-detail="light" aria-pressed="true">
+        <span lang="fr">Résumé</span><span lang="en">Summary</span><span lang="es">Resumen</span>
+      </button>
+      <button type="button" data-set-detail="full" aria-pressed="false">
+        <span lang="fr">Détails</span><span lang="en">Details</span><span lang="es">Detalles</span>
+      </button>
+    </div>
+  </div>
 
   <div class="wrap">
-    <h1>Présentations</h1>
-    <p class="lead">Decks générés avec l'usine à slides — HTML/CSS, thème « lean ».</p>
+    <h1 lang="fr">Présentations</h1>
+    <h1 lang="en">Presentations</h1>
+    <h1 lang="es">Presentaciones</h1>
+
+    <p class="lead" lang="fr">Decks générés avec l'usine à slides — HTML/CSS, thème « lean ».</p>
+    <p class="lead" lang="en">Decks generated with the slide factory — plain HTML/CSS, "lean" theme.</p>
+    <p class="lead" lang="es">Decks generados con la fábrica de diapositivas — HTML/CSS plano, tema «lean».</p>
+
+    <div class="detail" lang="fr">Pensés pour être ouverts directement dans un navigateur, sans installation — chaque deck défile comme un site web (FR/EN/ES, mode clair/sombre, lecture résumée ou détaillée).</div>
+    <div class="detail" lang="en">Designed to be opened directly in a browser, no install needed — each deck scrolls like a website (FR/EN/ES, light/dark mode, summary or detailed reading).</div>
+    <div class="detail" lang="es">Pensados para abrirse directamente en el navegador, sin instalación — cada deck se desplaza como un sitio web (FR/EN/ES, modo claro/oscuro, lectura resumida o detallada).</div>
 
     <a class="deck-link" href="powerbi/slides/index.protected.html">
       <div class="card">
-        <h2>Introduction à Power BI <span class="badge">🔒 Protégé</span></h2>
-        <p>Formation interne (4h) — bases de Power BI orientées robustesse d'entreprise : Power Query, modèle de données, rapports, publication.</p>
+        <h2>
+          <span lang="fr">Introduction à Power BI</span>
+          <span lang="en">Introduction to Power BI</span>
+          <span lang="es">Introducción a Power BI</span>
+          <span class="badge">
+            <span lang="fr">🔒 Protégé</span>
+            <span lang="en">🔒 Protected</span>
+            <span lang="es">🔒 Protegido</span>
+          </span>
+        </h2>
+        <p lang="fr">Formation interne (4h) — bases de Power BI orientées robustesse d'entreprise : Power Query, modèle de données, rapports, publication.</p>
+        <p lang="en">Internal training (4h) — Power BI basics focused on enterprise-grade robustness: Power Query, data model, reports, publishing.</p>
+        <p lang="es">Formación interna (4h) — fundamentos de Power BI orientados a la robustez empresarial: Power Query, modelo de datos, informes, publicación.</p>
       </div>
     </a>
   </div>
 
   <script>
     var root = document.documentElement;
+
+    function applyLang(lang) {
+      root.setAttribute('data-lang', lang);
+      root.setAttribute('lang', lang);
+      document.querySelectorAll('.lang-switch [data-set-lang]').forEach(function (btn) {
+        btn.setAttribute('aria-pressed', btn.getAttribute('data-set-lang') === lang ? 'true' : 'false');
+      });
+      localStorage.setItem('slide-lang', lang);
+    }
+
     function applyTheme(theme) {
       root.setAttribute('data-theme', theme);
       localStorage.setItem('slide-theme', theme);
     }
+
+    function applyDetail(level) {
+      root.setAttribute('data-detail', level);
+      document.querySelectorAll('.detail-switch [data-set-detail]').forEach(function (btn) {
+        btn.setAttribute('aria-pressed', btn.getAttribute('data-set-detail') === level ? 'true' : 'false');
+      });
+      localStorage.setItem('slide-detail', level);
+    }
+
+    document.querySelectorAll('.lang-switch [data-set-lang]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        applyLang(btn.getAttribute('data-set-lang'));
+      });
+    });
+
     document.querySelector('[data-toggle-theme]').addEventListener('click', function () {
       applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
+
+    document.querySelectorAll('.detail-switch [data-set-detail]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        applyDetail(btn.getAttribute('data-set-detail'));
+      });
+    });
+
+    applyLang(localStorage.getItem('slide-lang') || 'fr');
     applyTheme(localStorage.getItem('slide-theme') || 'light');
+    applyDetail(localStorage.getItem('slide-detail') || 'light');
   </script>
 </body>
 </html>

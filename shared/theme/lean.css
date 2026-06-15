@@ -407,6 +407,8 @@ blockquote {
   right: 16px;
   z-index: 100;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   gap: 8px;
   font-family: var(--font-sans);
@@ -449,16 +451,24 @@ blockquote {
   color: var(--accent-contrast);
 }
 
-.deck-controls .theme-switch {
+.deck-controls .theme-switch,
+.deck-controls .home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--bg);
   box-shadow: var(--shadow-sm);
   padding: 6px 10px;
   font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  line-height: 1;
 }
 
-.deck-controls .theme-switch:hover {
+.deck-controls .theme-switch:hover,
+.deck-controls .home-link:hover {
   background: var(--bg-alt);
 }
 

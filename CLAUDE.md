@@ -52,8 +52,12 @@ do not duplicate styling per deck. Decks reference it with a relative path
 ## Language switcher (FR/EN/ES) & dark mode
 
 Every deck ships with the `.deck-controls` toolbar from `template.html`
-(language switcher + dark mode toggle), driven by `data-lang` and
-`data-theme` attributes on `<html>` (persisted in `localStorage`).
+(home link + language switcher + dark mode toggle + detail toggle), driven
+by `data-lang` and `data-theme` attributes on `<html>` (persisted in
+`localStorage`). The home link (`🏠`) points back to the landing page
+(`../../index.html` from `<sous-projet>/slides/index.html`) — the landing
+page itself ships the same toolbar minus the home link (it includes its own
+translated content and a `.detail` block).
 
 - Every translatable text element exists as **three sibling elements**
   tagged `lang="fr"`, `lang="en"`, `lang="es"` — `lean.css` shows only the
@@ -67,9 +71,11 @@ Every deck ships with the `.deck-controls` toolbar from `template.html`
 
 ## Niveau de détail (Light / Complet)
 
-`.deck-controls` also includes a third toggle (`−` / `+`), driven by
-`data-detail="light"|"full"` on `<html>` (persisted in `localStorage`,
-mechanism mirrors `data-lang`/`data-theme`).
+`.deck-controls` also includes a third toggle (labelled "Résumé"/"Summary"/
+"Resumen" vs. "Détails"/"Details"/"Detalles", each as `lang="fr|en|es"`
+spans like any other translatable text), driven by `data-detail="light"|
+"full"` on `<html>` (persisted in `localStorage`, mechanism mirrors
+`data-lang`/`data-theme`).
 
 - Any element with class `.detail` is hidden in `light` mode (the default,
   used while presenting live) and shown in `full` mode (for self-guided
