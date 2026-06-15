@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Présentations</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="shared/theme/lean.css" />
+
+  <style>
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 64px 24px;
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2.2em;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0 0 0.3em 0;
+    }
+    .lead {
+      color: var(--text-muted);
+      margin: 0 0 2.5em 0;
+    }
+    .deck-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      margin-bottom: 16px;
+    }
+    .deck-link .card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      background: var(--bg-alt);
+      transition: border-color 0.15s ease;
+    }
+    .deck-link:hover .card {
+      border-color: var(--accent);
+    }
+    .deck-link h2 {
+      font-size: 1.2em;
+      font-weight: 700;
+      margin: 0 0 0.3em 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .deck-link p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.95em;
+    }
+    .badge {
+      font-size: 0.6em;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--bg);
+    }
+    .theme-switch {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--bg-alt);
+      color: var(--text-muted);
+      font-size: 14px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+  </style>
+</head>
+<body>
+  <button type="button" class="theme-switch" data-toggle-theme aria-label="Basculer le mode sombre / Toggle dark mode">🌙</button>
+
+  <div class="wrap">
+    <h1>Présentations</h1>
+    <p class="lead">Decks générés avec l'usine à slides — Reveal.js, thème « lean ».</p>
+
+    <a class="deck-link" href="powerbi/slides/index.protected.html">
+      <div class="card">
+        <h2>Introduction à Power BI <span class="badge">🔒 Protégé</span></h2>
+        <p>Formation interne (4h) — bases de Power BI orientées robustesse d'entreprise : Power Query, modèle de données, rapports, publication.</p>
+      </div>
+    </a>
+  </div>
+
+  <script>
+    var root = document.documentElement;
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('slide-theme', theme);
+    }
+    document.querySelector('[data-toggle-theme]').addEventListener('click', function () {
+      applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+    applyTheme(localStorage.getItem('slide-theme') || 'light');
+  </script>
+</body>
+</html>

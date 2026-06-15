@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TITRE DE LA PRÉSENTATION</title>
+
+  <!-- Reveal.js core (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Thème "lean" partagé (couleurs, dark mode, i18n, switcher, code) -->
+  <link rel="stylesheet" href="../../shared/theme/lean.css" />
+
+  <!--
+    Surcharges spécifiques au deck (couleur d'accent, etc.).
+    Décommenter et adapter si besoin, ou créer un fichier theme.css local.
+  -->
+  <!--
+  <style>
+    :root {
+      --accent: #4f46e5;
+    }
+  </style>
+  -->
+</head>
+<body>
+  <!-- Switcher langue (FR/EN/ES) + mode sombre. Toujours conserver ce bloc. -->
+  <div class="deck-controls">
+    <div class="lang-switch" role="group" aria-label="Langue / Language / Idioma">
+      <button type="button" data-set-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-set-lang="es" aria-pressed="false">ES</button>
+    </div>
+    <button type="button" class="theme-switch" data-toggle-theme aria-label="Basculer le mode sombre / Toggle dark mode">🌙</button>
+    <div class="detail-switch" role="group" aria-label="Niveau de détail / Detail level / Nivel de detalle">
+      <button type="button" data-set-detail="light" aria-pressed="true" title="Light">−</button>
+      <button type="button" data-set-detail="full" aria-pressed="false" title="Complet / Full / Completo">+</button>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide de titre -->
+      <section class="title center">
+        <h1 lang="fr">TITRE DE LA PRÉSENTATION</h1>
+        <h1 lang="en">PRESENTATION TITLE</h1>
+        <h1 lang="es">TÍTULO DE LA PRESENTACIÓN</h1>
+        <p class="subtitle" lang="fr">Sous-titre ou accroche en une phrase</p>
+        <p class="subtitle" lang="en">Subtitle or one-line hook</p>
+        <p class="subtitle" lang="es">Subtítulo o frase de impacto</p>
+      </section>
+
+      <!-- Slide de section (séparateur entre grandes parties) -->
+      <section class="section center">
+        <h2 lang="fr">Nom de la section</h2>
+        <h2 lang="en">Section name</h2>
+        <h2 lang="es">Nombre de la sección</h2>
+      </section>
+
+      <!-- Slide de contenu standard -->
+      <section>
+        <span class="eyebrow" lang="fr">Catégorie / fil rouge</span>
+        <span class="eyebrow" lang="en">Category / throughline</span>
+        <span class="eyebrow" lang="es">Categoría / hilo conductor</span>
+
+        <h2 lang="fr">Titre de la slide</h2>
+        <h2 lang="en">Slide title</h2>
+        <h2 lang="es">Título de la diapositiva</h2>
+
+        <ul lang="fr">
+          <li>Point clé numéro un</li>
+          <li>Point clé numéro deux</li>
+          <li>Point clé numéro trois</li>
+        </ul>
+        <ul lang="en">
+          <li>Key point one</li>
+          <li>Key point two</li>
+          <li>Key point three</li>
+        </ul>
+        <ul lang="es">
+          <li>Punto clave uno</li>
+          <li>Punto clave dos</li>
+          <li>Punto clave tres</li>
+        </ul>
+
+        <aside class="notes">Notes orateur (FR uniquement, non traduites, toujours visibles côté présentateur).</aside>
+      </section>
+
+      <!-- Exemple : slide avec chiffres clés -->
+      <section>
+        <h2 lang="fr">Quelques chiffres</h2>
+        <h2 lang="en">Key numbers</h2>
+        <h2 lang="es">Algunas cifras</h2>
+
+        <div class="grid cols-3">
+          <div class="card">
+            <div class="stat">42%</div>
+            <div class="stat-label" lang="fr">Libellé de la métrique</div>
+            <div class="stat-label" lang="en">Metric label</div>
+            <div class="stat-label" lang="es">Etiqueta de la métrica</div>
+          </div>
+          <div class="card">
+            <div class="stat">x3</div>
+            <div class="stat-label" lang="fr">Libellé de la métrique</div>
+            <div class="stat-label" lang="en">Metric label</div>
+            <div class="stat-label" lang="es">Etiqueta de la métrica</div>
+          </div>
+          <div class="card">
+            <div class="stat">12</div>
+            <div class="stat-label" lang="fr">Libellé de la métrique</div>
+            <div class="stat-label" lang="en">Metric label</div>
+            <div class="stat-label" lang="es">Etiqueta de la métrica</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exemple : slide avec code (pas de traduction, toujours visible) -->
+      <section>
+        <h2 lang="fr">Extrait de code / DAX</h2>
+        <h2 lang="en">Code / DAX snippet</h2>
+        <h2 lang="es">Fragmento de código / DAX</h2>
+        <pre><code class="language-dax" data-trim>
+Marge % =
+DIVIDE([Marge], [CA], 0)
+        </code></pre>
+      </section>
+
+      <!-- Slide de conclusion -->
+      <section class="title center">
+        <h1 lang="fr">Merci</h1>
+        <h1 lang="en">Thank you</h1>
+        <h1 lang="es">Gracias</h1>
+        <p class="subtitle" lang="fr">Questions / contact</p>
+        <p class="subtitle" lang="en">Questions / contact</p>
+        <p class="subtitle" lang="es">Preguntas / contacto</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      plugins: [ RevealNotes, RevealHighlight ]
+    }).then(function () {
+      var root = document.documentElement;
+
+      function applyLang(lang) {
+        root.setAttribute('data-lang', lang);
+        root.setAttribute('lang', lang);
+        document.querySelectorAll('.lang-switch [data-set-lang]').forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-set-lang') === lang ? 'true' : 'false');
+        });
+        localStorage.setItem('slide-lang', lang);
+        Reveal.layout();
+      }
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('slide-theme', theme);
+      }
+
+      function applyDetail(level) {
+        root.setAttribute('data-detail', level);
+        document.querySelectorAll('.detail-switch [data-set-detail]').forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-set-detail') === level ? 'true' : 'false');
+        });
+        localStorage.setItem('slide-detail', level);
+        Reveal.layout();
+      }
+
+      document.querySelectorAll('.lang-switch [data-set-lang]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyLang(btn.getAttribute('data-set-lang'));
+        });
+      });
+
+      document.querySelector('[data-toggle-theme]').addEventListener('click', function () {
+        applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      });
+
+      document.querySelectorAll('.detail-switch [data-set-detail]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyDetail(btn.getAttribute('data-set-detail'));
+        });
+      });
+
+      applyLang(localStorage.getItem('slide-lang') || 'fr');
+      applyTheme(localStorage.getItem('slide-theme') || 'light');
+      applyDetail(localStorage.getItem('slide-detail') || 'light');
+    });
+  </script>
+</body>
+</html>

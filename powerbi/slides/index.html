@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction à Power BI</title>
+
+  <!-- Reveal.js core (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
+
+  <!-- Polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Thème "lean" partagé (couleurs, dark mode, i18n, switcher, code) -->
+  <link rel="stylesheet" href="../../shared/theme/lean.css" />
+
+  <!-- Surcharges spécifiques au deck -->
+  <style>
+    :root {
+      --accent: #004e8c;
+    }
+  </style>
+</head>
+<body>
+  <!-- Switcher langue (FR/EN/ES) + mode sombre + niveau de détail. Toujours conserver ce bloc. -->
+  <div class="deck-controls">
+    <div class="lang-switch" role="group" aria-label="Langue / Language / Idioma">
+      <button type="button" data-set-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-set-lang="es" aria-pressed="false">ES</button>
+    </div>
+    <button type="button" class="theme-switch" data-toggle-theme aria-label="Basculer le mode sombre / Toggle dark mode">🌙</button>
+    <div class="detail-switch" role="group" aria-label="Niveau de détail / Detail level / Nivel de detalle">
+      <button type="button" data-set-detail="light" aria-pressed="true" title="Light">−</button>
+      <button type="button" data-set-detail="full" aria-pressed="false" title="Complet / Full / Completo">+</button>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- 1. Titre -->
+      <section class="title center">
+        <h1 lang="fr">Introduction à Power BI</h1>
+        <h1 lang="en">Introduction to Power BI</h1>
+        <h1 lang="es">Introducción a Power BI</h1>
+        <p class="subtitle" lang="fr">Viser la robustesse d'entreprise, pas juste le graphique — formation de 4h</p>
+        <p class="subtitle" lang="en">Aiming for enterprise-grade robustness, not just a chart — 4h training</p>
+        <p class="subtitle" lang="es">Apuntar a la robustez empresarial, no solo al gráfico — formación de 4h</p>
+        <aside class="notes">Présenter rapidement le déroulé : théorie courte (slides) + démonstrations live tout au long de la session sur Power BI Desktop.</aside>
+      </section>
+
+      <!-- 2. Section : À quoi sert Power BI -->
+      <section class="section center">
+        <h2 lang="fr">À quoi sert Power BI ?</h2>
+        <h2 lang="en">What is Power BI for?</h2>
+        <h2 lang="es">¿Para qué sirve Power BI?</h2>
+      </section>
+
+      <!-- 2a -->
+      <section>
+        <span class="eyebrow" lang="fr">Positionnement</span>
+        <span class="eyebrow" lang="en">Positioning</span>
+        <span class="eyebrow" lang="es">Posicionamiento</span>
+
+        <h2 lang="fr">Un reporting réussi tourne seul</h2>
+        <h2 lang="en">A successful report runs on its own</h2>
+        <h2 lang="es">Un informe exitoso funciona solo</h2>
+
+        <ul lang="fr">
+          <li>Power BI = outil de BI self-service : collecter, transformer, modéliser, visualiser, diffuser</li>
+          <li>L'objectif n'est pas « faire un graphique » mais bâtir un pipeline fiable</li>
+          <li>Le succès se mesure par le temps qu'on <strong>ne passe pas</strong> à maintenir le rapport</li>
+        </ul>
+        <ul lang="en">
+          <li>Power BI = a self-service BI tool: collect, transform, model, visualize, share</li>
+          <li>The goal isn't "making a chart" but building a reliable pipeline</li>
+          <li>Success is measured by the time you <strong>don't</strong> spend maintaining the report</li>
+        </ul>
+        <ul lang="es">
+          <li>Power BI = herramienta de BI de autoservicio: recopilar, transformar, modelar, visualizar, compartir</li>
+          <li>El objetivo no es «hacer un gráfico» sino construir un proceso fiable</li>
+          <li>El éxito se mide por el tiempo que <strong>no</strong> se dedica a mantener el informe</li>
+        </ul>
+
+        <div class="detail" lang="fr">Concrètement : une fois construit correctement, un rapport Power BI se met à jour seul (actualisation planifiée) et reste disponible pour son audience sans que vous ayez à renvoyer un fichier ou recopier des données.</div>
+        <div class="detail" lang="en">In practice: once built correctly, a Power BI report updates itself (scheduled refresh) and stays available to its audience without you re-sending files or re-copying data.</div>
+        <div class="detail" lang="es">En la práctica: una vez construido correctamente, un informe de Power BI se actualiza solo (actualización programada) y permanece disponible para su audiencia sin que tengas que reenviar archivos ni copiar datos.</div>
+
+        <aside class="notes">Insister : cette formation donne les clés pour viser ce niveau de robustesse, pas juste l'aspect visuel.</aside>
+      </section>
+
+      <!-- 2b -->
+      <section>
+        <span class="eyebrow" lang="fr">Positionnement</span>
+        <span class="eyebrow" lang="en">Positioning</span>
+        <span class="eyebrow" lang="es">Posicionamiento</span>
+
+        <h2 lang="fr">Artisanal vs robuste</h2>
+        <h2 lang="en">Handcrafted vs robust</h2>
+        <h2 lang="es">Artesanal vs robusto</h2>
+
+        <div class="grid cols-2">
+          <div class="card">
+            <h3 lang="fr">Reporting artisanal</h3>
+            <h3 lang="en">Handcrafted reporting</h3>
+            <h3 lang="es">Informe artesanal</h3>
+            <ul lang="fr">
+              <li>Copier-coller mensuel depuis Excel</li>
+              <li>Mise à jour manuelle des chiffres</li>
+              <li>Fichier envoyé par email</li>
+              <li>Une version différente par destinataire</li>
+            </ul>
+            <ul lang="en">
+              <li>Monthly copy-paste from Excel</li>
+              <li>Manual updates to figures</li>
+              <li>File sent by email</li>
+              <li>A different version per recipient</li>
+            </ul>
+            <ul lang="es">
+              <li>Copiar y pegar mensual desde Excel</li>
+              <li>Actualización manual de las cifras</li>
+              <li>Archivo enviado por correo</li>
+              <li>Una versión distinta por destinatario</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 lang="fr">Reporting robuste</h3>
+            <h3 lang="en">Robust reporting</h3>
+            <h3 lang="es">Informe robusto</h3>
+            <ul lang="fr">
+              <li>Sources connectées directement</li>
+              <li>Actualisation automatique planifiée</li>
+              <li>Publication centralisée (Power BI Service)</li>
+              <li>Une seule version, toujours à jour</li>
+            </ul>
+            <ul lang="en">
+              <li>Directly connected sources</li>
+              <li>Automatic scheduled refresh</li>
+              <li>Centralized publishing (Power BI Service)</li>
+              <li>A single, always up-to-date version</li>
+            </ul>
+            <ul lang="es">
+              <li>Fuentes conectadas directamente</li>
+              <li>Actualización automática programada</li>
+              <li>Publicación centralizada (Power BI Service)</li>
+              <li>Una sola versión, siempre actualizada</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail" lang="fr">Exemples de dérives classiques : un fichier Excel retouché à la main chaque mois finit par contenir des formules cassées ; chaque destinataire reçoit une version légèrement différente du fichier ; personne ne sait plus quelle est la « bonne » version. Power BI élimine ces problèmes en centralisant la donnée et sa diffusion.</div>
+        <div class="detail" lang="en">Classic failure modes: an Excel file hand-edited every month ends up with broken formulas; each recipient gets a slightly different version of the file; nobody knows which one is the "right" version anymore. Power BI removes these problems by centralizing data and its distribution.</div>
+        <div class="detail" lang="es">Errores clásicos: un archivo Excel editado a mano cada mes termina con fórmulas rotas; cada destinatario recibe una versión ligeramente distinta del archivo; nadie sabe ya cuál es la versión «correcta». Power BI elimina estos problemas centralizando los datos y su difusión.</div>
+      </section>
+
+      <!-- 3. Section : La vraie valeur ajoutée -->
+      <section class="section center">
+        <h2 lang="fr">La vraie valeur ajoutée</h2>
+        <h2 lang="en">Where the real value is</h2>
+        <h2 lang="es">El verdadero valor añadido</h2>
+      </section>
+
+      <!-- 3a -->
+      <section>
+        <span class="eyebrow" lang="fr">Power Query &amp; diffusion</span>
+        <span class="eyebrow" lang="en">Power Query &amp; distribution</span>
+        <span class="eyebrow" lang="es">Power Query y distribución</span>
+
+        <h2 lang="fr">Power Query : l'usine de transformation</h2>
+        <h2 lang="en">Power Query: the transformation engine</h2>
+        <h2 lang="es">Power Query: la fábrica de transformación</h2>
+
+        <ul lang="fr">
+          <li>Transforme des données brutes en données prêtes à l'emploi</li>
+          <li>Chaque transformation = une étape enregistrée, documentée</li>
+          <li>Les étapes se rejouent automatiquement à chaque actualisation</li>
+          <li><strong>C'est ici que se joue la majeure partie de la valeur de Power BI</strong></li>
+        </ul>
+        <ul lang="en">
+          <li>Turns raw data into ready-to-use data</li>
+          <li>Each transformation = a recorded, documented step</li>
+          <li>Steps replay automatically on every refresh</li>
+          <li><strong>This is where most of Power BI's value is created</strong></li>
+        </ul>
+        <ul lang="es">
+          <li>Convierte datos en bruto en datos listos para usar</li>
+          <li>Cada transformación = un paso registrado y documentado</li>
+          <li>Los pasos se repiten automáticamente en cada actualización</li>
+          <li><strong>Aquí se genera la mayor parte del valor de Power BI</strong></li>
+        </ul>
+
+        <div class="detail" lang="fr">Concrètement, l'éditeur Power Query enregistre chaque clic (filtrer une colonne, changer un type, fusionner deux tables...) sous forme d'étape nommée. À chaque actualisation, ces étapes sont rejouées automatiquement sur les données fraîches — l'équivalent d'une macro Excel, mais lisible, modifiable et fiable.</div>
+        <div class="detail" lang="en">Concretely, the Power Query editor records every click (filtering a column, changing a type, merging two tables...) as a named step. On every refresh, these steps automatically replay on fresh data — like an Excel macro, but readable, editable and reliable.</div>
+        <div class="detail" lang="es">En concreto, el editor de Power Query registra cada clic (filtrar una columna, cambiar un tipo, combinar dos tablas...) como un paso con nombre. En cada actualización, estos pasos se repiten automáticamente sobre los datos nuevos: como una macro de Excel, pero legible, editable y fiable.</div>
+
+        <aside class="notes">Démo live à venir dans les sections suivantes — ici, rester sur le principe général.</aside>
+      </section>
+
+      <!-- 3b -->
+      <section>
+        <span class="eyebrow" lang="fr">Power Query &amp; diffusion</span>
+        <span class="eyebrow" lang="en">Power Query &amp; distribution</span>
+        <span class="eyebrow" lang="es">Power Query y distribución</span>
+
+        <h2 lang="fr">Ne vous arrêtez pas à Desktop</h2>
+        <h2 lang="en">Don't stop at Desktop</h2>
+        <h2 lang="es">No te detengas en Desktop</h2>
+
+        <ol lang="fr">
+          <li>Sources de données</li>
+          <li>Power Query — transformation</li>
+          <li>Modèle — relations</li>
+          <li>Rapport — visuels</li>
+          <li>Power BI Service — diffusion automatique</li>
+        </ol>
+        <ol lang="en">
+          <li>Data sources</li>
+          <li>Power Query — transformation</li>
+          <li>Model — relationships</li>
+          <li>Report — visuals</li>
+          <li>Power BI Service — automatic distribution</li>
+        </ol>
+        <ol lang="es">
+          <li>Fuentes de datos</li>
+          <li>Power Query — transformación</li>
+          <li>Modelo — relaciones</li>
+          <li>Informe — visuales</li>
+          <li>Power BI Service — distribución automática</li>
+        </ol>
+
+        <blockquote lang="fr">Se contenter d'ouvrir Desktop, cliquer sur Actualiser et renvoyer le fichier par email, c'est ignorer les deux dernières étapes — celles qui créent le plus de valeur collective.</blockquote>
+        <blockquote lang="en">Just opening Desktop, clicking Refresh and emailing the file ignores the last two steps — the ones that create the most collective value.</blockquote>
+        <blockquote lang="es">Limitarse a abrir Desktop, pulsar Actualizar y enviar el archivo por correo ignora los dos últimos pasos: los que generan más valor colectivo.</blockquote>
+
+        <div class="detail" lang="fr">La publication ne signifie pas forcément « tout le monde dans l'entreprise peut voir le rapport » — elle se fait dans un espace de travail (workspace) avec des droits d'accès définis. On y reviendra dans la section publication &amp; partage.</div>
+        <div class="detail" lang="en">Publishing doesn't necessarily mean "everyone in the company can see the report" — it happens in a workspace with defined access rights. We'll come back to this in the publish &amp; share section.</div>
+        <div class="detail" lang="es">Publicar no significa necesariamente que «todo el mundo en la empresa pueda ver el informe»: se hace en un espacio de trabajo (workspace) con permisos de acceso definidos. Volveremos a esto en la sección de publicación y compartición.</div>
+      </section>
+
+      <!-- 4. Section : Vue tabulaire -->
+      <section class="section center">
+        <h2 lang="fr">La vue Données</h2>
+        <h2 lang="en">The Data view</h2>
+        <h2 lang="es">La vista de datos</h2>
+      </section>
+
+      <!-- 4a -->
+      <section>
+        <span class="eyebrow" lang="fr">Vue Données</span>
+        <span class="eyebrow" lang="en">Data view</span>
+        <span class="eyebrow" lang="es">Vista de datos</span>
+
+        <h2 lang="fr">Une table, comme dans Excel — mais transformable</h2>
+        <h2 lang="en">A table, like in Excel — but transformable</h2>
+        <h2 lang="es">Una tabla, como en Excel, pero transformable</h2>
+
+        <ul lang="fr">
+          <li>La vue Données affiche le résultat des transformations Power Query</li>
+          <li>Chaque colonne a un type explicite (texte, nombre, date...)</li>
+          <li>Le panneau « Étapes appliquées » liste l'historique des transformations</li>
+        </ul>
+        <ul lang="en">
+          <li>The Data view shows the result of Power Query transformations</li>
+          <li>Each column has an explicit type (text, number, date...)</li>
+          <li>The "Applied Steps" panel lists the transformation history</li>
+        </ul>
+        <ul lang="es">
+          <li>La vista Datos muestra el resultado de las transformaciones de Power Query</li>
+          <li>Cada columna tiene un tipo explícito (texto, número, fecha...)</li>
+          <li>El panel «Pasos aplicados» muestra el historial de transformaciones</li>
+        </ul>
+
+        <div class="detail" lang="fr">Dans Excel, on manipule directement les cellules : on tape une formule, on trie une colonne, on supprime une ligne — et si on recommence le mois suivant avec de nouvelles données, il faut tout refaire à la main. Dans Power Query, chaque action devient une étape réutilisable : le mois suivant, on actualise et toutes les étapes se rejouent automatiquement sur les nouvelles données.</div>
+        <div class="detail" lang="en">In Excel, you manipulate cells directly: type a formula, sort a column, delete a row — and next month, with new data, you redo it all by hand. In Power Query, every action becomes a reusable step: next month you just refresh, and all steps replay automatically on the new data.</div>
+        <div class="detail" lang="es">En Excel se manipulan directamente las celdas: se escribe una fórmula, se ordena una columna, se elimina una fila... y al mes siguiente, con datos nuevos, hay que repetirlo todo a mano. En Power Query, cada acción se convierte en un paso reutilizable: al mes siguiente basta con actualizar y todos los pasos se repiten automáticamente sobre los nuevos datos.</div>
+
+        <aside class="notes">Démo live : ouvrir une source, montrer le panneau des étapes appliquées.</aside>
+      </section>
+
+      <!-- 4b -->
+      <section>
+        <span class="eyebrow" lang="fr">Vue Données</span>
+        <span class="eyebrow" lang="en">Data view</span>
+        <span class="eyebrow" lang="es">Vista de datos</span>
+
+        <h2 lang="fr">Transformations courantes</h2>
+        <h2 lang="en">Common transformations</h2>
+        <h2 lang="es">Transformaciones habituales</h2>
+
+        <div class="grid cols-3">
+          <div class="card">
+            <h3 lang="fr">Filtrer / Trier</h3>
+            <h3 lang="en">Filter / Sort</h3>
+            <h3 lang="es">Filtrar / Ordenar</h3>
+            <p lang="fr">Comme un filtre Excel, mais mémorisé comme étape</p>
+            <p lang="en">Like an Excel filter, but remembered as a step</p>
+            <p lang="es">Como un filtro de Excel, pero memorizado como paso</p>
+          </div>
+          <div class="card">
+            <h3 lang="fr">Fusionner des requêtes</h3>
+            <h3 lang="en">Merge queries</h3>
+            <h3 lang="es">Combinar consultas</h3>
+            <p lang="fr">Équivalent d'un RECHERCHEV ou d'une jointure</p>
+            <p lang="en">Equivalent to a VLOOKUP or a join</p>
+            <p lang="es">Equivalente a un BUSCARV o una unión</p>
+          </div>
+          <div class="card">
+            <h3 lang="fr">Regrouper (Group by)</h3>
+            <h3 lang="en">Group by</h3>
+            <h3 lang="es">Agrupar (Group by)</h3>
+            <p lang="fr">Équivalent d'un tableau croisé dynamique</p>
+            <p lang="en">Equivalent to a pivot table</p>
+            <p lang="es">Equivalente a una tabla dinámica</p>
+          </div>
+        </div>
+
+        <div class="detail" lang="fr">Astuce robustesse : renommez les étapes Power Query avec des noms clairs (ex. « Filtrer chantiers actifs » plutôt que « Étape 7 ») — un futur lecteur (ou vous, six mois plus tard) doit pouvoir comprendre le pipeline sans tout réouvrir.</div>
+        <div class="detail" lang="en">Robustness tip: rename Power Query steps with clear names (e.g. "Filter active projects" instead of "Step 7") — a future reader (or you, six months later) should understand the pipeline without reopening everything.</div>
+        <div class="detail" lang="es">Consejo de robustez: renombra los pasos de Power Query con nombres claros (por ejemplo, «Filtrar proyectos activos» en lugar de «Paso 7»); un futuro lector (o tú mismo, seis meses después) debe poder entender el proceso sin reabrirlo todo.</div>
+
+        <aside class="notes">Démo live : appliquer 2-3 transformations simples et montrer leur effet immédiat sur le panneau des étapes.</aside>
+      </section>
+
+      <!-- 5. Section : Vue relations -->
+      <section class="section center">
+        <h2 lang="fr">La vue Modèle</h2>
+        <h2 lang="en">The Model view</h2>
+        <h2 lang="es">La vista de modelo</h2>
+      </section>
+
+      <!-- 5a -->
+      <section>
+        <span class="eyebrow" lang="fr">Vue Modèle</span>
+        <span class="eyebrow" lang="en">Model view</span>
+        <span class="eyebrow" lang="es">Vista de modelo</span>
+
+        <h2 lang="fr">Relier les tables, une fois pour toutes</h2>
+        <h2 lang="en">Linking tables, once and for all</h2>
+        <h2 lang="es">Relacionar tablas, de una vez por todas</h2>
+
+        <ul lang="fr">
+          <li>La vue Modèle affiche les tables et les relations entre elles</li>
+          <li>Une relation = un lien entre une colonne clé de deux tables</li>
+          <li>Définie une fois, elle s'applique automatiquement à tous les visuels</li>
+        </ul>
+        <ul lang="en">
+          <li>The Model view shows tables and the relationships between them</li>
+          <li>A relationship = a link between a key column in two tables</li>
+          <li>Defined once, it automatically applies to every visual</li>
+        </ul>
+        <ul lang="es">
+          <li>La vista Modelo muestra las tablas y las relaciones entre ellas</li>
+          <li>Una relación = un vínculo entre una columna clave de dos tablas</li>
+          <li>Definida una vez, se aplica automáticamente a todos los visuales</li>
+        </ul>
+
+        <div class="detail" lang="fr">Dans Excel, pour combiner deux tableaux, on écrit une formule RECHERCHEV (ou INDEX/EQUIV) dans chaque feuille, pour chaque colonne dont on a besoin — il faut la recopier partout, la maintenir, vérifier qu'elle ne se casse pas. Dans Power BI, la relation est définie UNE fois dans la vue Modèle, et tous les visuels du rapport peuvent croiser les deux tables sans formule supplémentaire.</div>
+        <div class="detail" lang="en">In Excel, to combine two tables, you write a VLOOKUP (or INDEX/MATCH) formula in every sheet, for every column you need — and you must copy it everywhere, maintain it, and check it doesn't break. In Power BI, the relationship is defined ONCE in the Model view, and every visual in the report can cross the two tables without any extra formula.</div>
+        <div class="detail" lang="es">En Excel, para combinar dos tablas hay que escribir una fórmula BUSCARV (o INDICE/COINCIDIR) en cada hoja, para cada columna necesaria, copiarla por todas partes, mantenerla y comprobar que no se rompa. En Power BI, la relación se define UNA vez en la vista Modelo, y todos los visuales del informe pueden cruzar ambas tablas sin fórmulas adicionales.</div>
+
+        <aside class="notes">Démo live : créer ou vérifier une relation entre deux tables, montrer l'effet sur un visuel.</aside>
+      </section>
+
+      <!-- 5b -->
+      <section>
+        <span class="eyebrow" lang="fr">Vue Modèle</span>
+        <span class="eyebrow" lang="en">Model view</span>
+        <span class="eyebrow" lang="es">Vista de modelo</span>
+
+        <h2 lang="fr">Le modèle en étoile</h2>
+        <h2 lang="en">The star schema</h2>
+        <h2 lang="es">El modelo en estrella</h2>
+
+        <div class="grid cols-2">
+          <div class="card">
+            <h3 lang="fr">Table de faits</h3>
+            <h3 lang="en">Fact table</h3>
+            <h3 lang="es">Tabla de hechos</h3>
+            <p lang="fr">Les mesures (ventes, coûts, heures...) — une ligne par événement</p>
+            <p lang="en">Measures (sales, costs, hours...) — one row per event</p>
+            <p lang="es">Las métricas (ventas, costes, horas...) — una fila por evento</p>
+          </div>
+          <div class="card">
+            <h3 lang="fr">Tables de dimensions</h3>
+            <h3 lang="en">Dimension tables</h3>
+            <h3 lang="es">Tablas de dimensiones</h3>
+            <p lang="fr">Les axes d'analyse (date, projet, fournisseur...) — une ligne par élément</p>
+            <p lang="en">Analysis axes (date, project, supplier...) — one row per item</p>
+            <p lang="es">Los ejes de análisis (fecha, proyecto, proveedor...) — una fila por elemento</p>
+          </div>
+        </div>
+
+        <p lang="fr">Une table de faits entourée de ses dimensions = modèle en étoile.</p>
+        <p lang="en">A fact table surrounded by its dimensions = star schema.</p>
+        <p lang="es">Una tabla de hechos rodeada de sus dimensiones = modelo en estrella.</p>
+
+        <div class="detail" lang="fr">Pourquoi pas un seul grand tableau « à plat » avec tout dedans (comme on le ferait spontanément dans Excel) ? Parce qu'il devient vite énorme, redondant (la même info répétée sur chaque ligne), lent, et difficile à faire évoluer. Le modèle en étoile évite ces répétitions et donne de bien meilleures performances sur de gros volumes. La granularité (le niveau de détail d'une ligne de la table de faits) doit être choisie consciemment, dès la conception.</div>
+        <div class="detail" lang="en">Why not a single big "flat" table with everything in it (as you'd naturally do in Excel)? Because it quickly becomes huge, redundant (the same info repeated on every row), slow, and hard to evolve. The star schema avoids this repetition and performs far better at scale. The grain (the level of detail of one fact-table row) should be chosen deliberately, from the start.</div>
+        <div class="detail" lang="es">¿Por qué no usar una sola tabla «plana» con todo dentro (como se haría espontáneamente en Excel)? Porque rápidamente se vuelve enorme, redundante (la misma información repetida en cada fila), lenta y difícil de evolucionar. El modelo en estrella evita estas repeticiones y ofrece un rendimiento mucho mejor con grandes volúmenes. La granularidad (el nivel de detalle de una fila de la tabla de hechos) debe elegirse de forma consciente desde el diseño.</div>
+      </section>
+
+      <!-- 6. Section : Vue rapport -->
+      <section class="section center">
+        <h2 lang="fr">La vue Rapport</h2>
+        <h2 lang="en">The Report view</h2>
+        <h2 lang="es">La vista de informe</h2>
+      </section>
+
+      <!-- 6a -->
+      <section>
+        <span class="eyebrow" lang="fr">Vue Rapport</span>
+        <span class="eyebrow" lang="en">Report view</span>
+        <span class="eyebrow" lang="es">Vista de informe</span>
+
+        <h2 lang="fr">Un visuel, c'est un TCD habillé différemment</h2>
+        <h2 lang="en">A visual is just a pivot table in disguise</h2>
+        <h2 lang="es">Un visual es una tabla dinámica con otro aspecto</h2>
+
+        <ul lang="fr">
+          <li>Graphique, carte, jauge, carte de KPI... = mêmes mécanismes qu'un TCD</li>
+          <li>Champs sur axes / légende / valeurs = lignes / colonnes / valeurs d'un TCD</li>
+          <li>Les segments (slicers) = filtres de TCD, mais visibles et cliquables</li>
+        </ul>
+        <ul lang="en">
+          <li>Chart, map, gauge, KPI card... = same mechanics as a pivot table</li>
+          <li>Fields on axes / legend / values = pivot table rows / columns / values</li>
+          <li>Slicers = pivot table filters, but visible and clickable</li>
+        </ul>
+        <ul lang="es">
+          <li>Gráfico, mapa, medidor, tarjeta KPI... = los mismos mecanismos que una tabla dinámica</li>
+          <li>Campos en ejes / leyenda / valores = filas / columnas / valores de una tabla dinámica</li>
+          <li>Los segmentadores (slicers) = filtros de tabla dinámica, pero visibles y clicables</li>
+        </ul>
+
+        <div class="detail" lang="fr">La différence principale n'est donc pas « magique » — c'est la présentation et l'agencement. Le vrai gain de temps vient du fait que les données sont déjà propres et reliées (sections précédentes) : construire un visuel devient rapide, et changer de représentation (barres → courbes → carte) ne demande que quelques clics, sans retoucher les données.</div>
+        <div class="detail" lang="en">So the main difference isn't "magic" — it's presentation and layout. The real time saving comes from the data already being clean and connected (previous sections): building a visual becomes fast, and switching representation (bars → lines → map) takes a few clicks, without touching the data.</div>
+        <div class="detail" lang="es">Por tanto, la diferencia principal no es «magia», sino la presentación y la disposición. El verdadero ahorro de tiempo viene de que los datos ya están limpios y relacionados (secciones anteriores): construir un visual se vuelve rápido, y cambiar de representación (barras → líneas → mapa) requiere solo unos clics, sin tocar los datos.</div>
+
+        <aside class="notes">Démo live : construire 1-2 visuels simples à partir du modèle préparé.</aside>
+      </section>
+
+      <!-- 6b -->
+      <section>
+        <span class="eyebrow" lang="fr">Vue Rapport</span>
+        <span class="eyebrow" lang="en">Report view</span>
+        <span class="eyebrow" lang="es">Vista de informe</span>
+
+        <h2 lang="fr">L'interactivité croisée</h2>
+        <h2 lang="en">Cross-filtering</h2>
+        <h2 lang="es">La interactividad cruzada</h2>
+
+        <ul lang="fr">
+          <li>Cliquer sur un élément d'un visuel filtre automatiquement les autres visuels de la page</li>
+          <li>Pas de formule, pas de mise à jour manuelle : c'est natif</li>
+          <li>Un TCD classique ne fait pas cela entre plusieurs tableaux</li>
+        </ul>
+        <ul lang="en">
+          <li>Clicking an element in one visual automatically filters the other visuals on the page</li>
+          <li>No formula, no manual update: it's native</li>
+          <li>A classic pivot table doesn't do this across multiple tables</li>
+        </ul>
+        <ul lang="es">
+          <li>Hacer clic en un elemento de un visual filtra automáticamente los demás visuales de la página</li>
+          <li>Sin fórmulas, sin actualización manual: es nativo</li>
+          <li>Una tabla dinámica clásica no hace esto entre varias tablas</li>
+        </ul>
+
+        <div class="detail" lang="fr">C'est l'un des effets « wahou » les plus simples à montrer en démo : cliquer sur un mois dans un graphique et voir une carte, un tableau et un KPI se mettre à jour instantanément, sans aucune manipulation.</div>
+        <div class="detail" lang="en">This is one of the simplest "wow" effects to show in a demo: click a month in a chart and watch a map, a table and a KPI update instantly, with no manipulation at all.</div>
+        <div class="detail" lang="es">Es uno de los efectos «wow» más sencillos de mostrar en una demo: haz clic en un mes de un gráfico y observa cómo un mapa, una tabla y un KPI se actualizan al instante, sin ninguna manipulación.</div>
+
+        <aside class="notes">Démo live : cliquer sur un élément et montrer la mise à jour instantanée des autres visuels.</aside>
+      </section>
+
+      <!-- 7. Section : Publier et partager -->
+      <section class="section center">
+        <h2 lang="fr">Publier et partager</h2>
+        <h2 lang="en">Publish and share</h2>
+        <h2 lang="es">Publicar y compartir</h2>
+      </section>
+
+      <!-- 7a -->
+      <section>
+        <span class="eyebrow" lang="fr">Power BI Service</span>
+        <span class="eyebrow" lang="en">Power BI Service</span>
+        <span class="eyebrow" lang="es">Power BI Service</span>
+
+        <h2 lang="fr">Workspaces et apps</h2>
+        <h2 lang="en">Workspaces and apps</h2>
+        <h2 lang="es">Workspaces y apps</h2>
+
+        <ul lang="fr">
+          <li>Power BI Service = le portail en ligne où vivent les rapports publiés</li>
+          <li>Un workspace = un espace de travail partagé entre collaborateurs</li>
+          <li>Une app = la vue consolidée livrée aux utilisateurs finaux</li>
+        </ul>
+        <ul lang="en">
+          <li>Power BI Service = the online portal where published reports live</li>
+          <li>A workspace = a shared workspace for collaborators</li>
+          <li>An app = the consolidated view delivered to end users</li>
+        </ul>
+        <ul lang="es">
+          <li>Power BI Service = el portal en línea donde viven los informes publicados</li>
+          <li>Un workspace = un espacio de trabajo compartido entre colaboradores</li>
+          <li>Una app = la vista consolidada entregada a los usuarios finales</li>
+        </ul>
+
+        <div class="detail" lang="fr">Le workspace est l'endroit où vous (et votre équipe) travaillez et mettez à jour les rapports. L'app est ce que voient les destinataires : une présentation propre, sans les éléments de travail en cours. Séparer les deux évite que des utilisateurs finaux tombent sur une version en cours de modification.</div>
+        <div class="detail" lang="en">The workspace is where you (and your team) work and update reports. The app is what recipients see: a clean presentation, without work-in-progress elements. Separating the two avoids end users landing on a version that's mid-edit.</div>
+        <div class="detail" lang="es">El workspace es donde tú (y tu equipo) trabajáis y actualizáis los informes. La app es lo que ven los destinatarios: una presentación limpia, sin elementos en curso de edición. Separar ambos evita que los usuarios finales vean una versión en construcción.</div>
+      </section>
+
+      <!-- 7b -->
+      <section>
+        <span class="eyebrow" lang="fr">Power BI Service</span>
+        <span class="eyebrow" lang="en">Power BI Service</span>
+        <span class="eyebrow" lang="es">Power BI Service</span>
+
+        <h2 lang="fr">Actualisation planifiée, passerelle et licences</h2>
+        <h2 lang="en">Scheduled refresh, gateway and licensing</h2>
+        <h2 lang="es">Actualización programada, gateway y licencias</h2>
+
+        <ul lang="fr">
+          <li>L'actualisation planifiée garde le rapport à jour automatiquement</li>
+          <li>Pour des sources internes (serveurs, fichiers réseau), une passerelle (gateway) relie le cloud à votre réseau</li>
+          <li>Les licences déterminent qui peut consulter / publier</li>
+        </ul>
+        <ul lang="en">
+          <li>Scheduled refresh keeps the report automatically up to date</li>
+          <li>For internal sources (servers, network files), a gateway connects the cloud to your network</li>
+          <li>Licenses determine who can view / publish</li>
+        </ul>
+        <ul lang="es">
+          <li>La actualización programada mantiene el informe actualizado automáticamente</li>
+          <li>Para fuentes internas (servidores, archivos de red), un gateway conecta la nube con tu red</li>
+          <li>Las licencias determinan quién puede consultar / publicar</li>
+        </ul>
+
+        <div class="grid cols-3">
+          <div class="card">
+            <h3>Pro</h3>
+            <p lang="fr">Consulter et publier dans des workspaces standards</p>
+            <p lang="en">View and publish in standard workspaces</p>
+            <p lang="es">Consultar y publicar en workspaces estándar</p>
+          </div>
+          <div class="card">
+            <h3>PPU</h3>
+            <p lang="fr">Fonctionnalités avancées par utilisateur, sans capacité dédiée</p>
+            <p lang="en">Advanced per-user features, no dedicated capacity</p>
+            <p lang="es">Funciones avanzadas por usuario, sin capacidad dedicada</p>
+          </div>
+          <div class="card">
+            <h3>Premium / Fabric</h3>
+            <p lang="fr">Capacité dédiée — les lecteurs sans licence Pro peuvent consulter</p>
+            <p lang="en">Dedicated capacity — viewers without a Pro license can read reports</p>
+            <p lang="es">Capacidad dedicada: los lectores sin licencia Pro pueden consultar</p>
+          </div>
+        </div>
+
+        <div class="detail" lang="fr">En pratique, pour une PME : quelques créateurs/éditeurs de rapports ont besoin d'une licence Pro (voire PPU pour des fonctionnalités avancées) ; les lecteurs n'ont besoin de rien de plus si l'organisation dispose d'une capacité Premium/Fabric. La passerelle de données (gateway) est indispensable dès que vos sources sont « derrière le pare-feu » (serveur SQL interne, partage de fichiers...) — sans elle, pas d'actualisation automatique possible pour ces sources.</div>
+        <div class="detail" lang="en">In practice, for an SME: a few report creators/editors need a Pro license (or PPU for advanced features); viewers need nothing extra if the organization has Premium/Fabric capacity. The data gateway is essential as soon as your sources are "behind the firewall" (internal SQL server, file share...) — without it, no automatic refresh is possible for those sources.</div>
+        <div class="detail" lang="es">En la práctica, para una pyme: unos pocos creadores/editores de informes necesitan una licencia Pro (o PPU para funciones avanzadas); los lectores no necesitan nada más si la organización dispone de capacidad Premium/Fabric. El gateway de datos es imprescindible en cuanto las fuentes están «detrás del firewall» (servidor SQL interno, recurso compartido de archivos...): sin él, no es posible la actualización automática para esas fuentes.</div>
+      </section>
+
+      <!-- 8. Section : Synthèse -->
+      <section class="section center">
+        <h2 lang="fr">Synthèse</h2>
+        <h2 lang="en">Summary</h2>
+        <h2 lang="es">Síntesis</h2>
+      </section>
+
+      <!-- 8a : Checklist -->
+      <section>
+        <span class="eyebrow" lang="fr">Synthèse</span>
+        <span class="eyebrow" lang="en">Summary</span>
+        <span class="eyebrow" lang="es">Síntesis</span>
+
+        <h2 lang="fr">Checklist de robustesse</h2>
+        <h2 lang="en">Robustness checklist</h2>
+        <h2 lang="es">Lista de comprobación de robustez</h2>
+
+        <ul lang="fr">
+          <li>Connecter directement les sources — pas de copier-coller</li>
+          <li>Toutes les transformations dans Power Query — pas dans Excel ni à la main</li>
+          <li>Modèle de données propre (relations, étoile) — pas un tableau à plat</li>
+          <li>Publier + planifier l'actualisation — pas de fichier envoyé par mail</li>
+          <li>Nommer clairement les étapes et les mesures — pour que ce soit maintenable</li>
+        </ul>
+        <ul lang="en">
+          <li>Connect sources directly — no copy-paste</li>
+          <li>All transformations in Power Query — not in Excel or by hand</li>
+          <li>Clean data model (relationships, star schema) — not one flat table</li>
+          <li>Publish + schedule refresh — no files emailed around</li>
+          <li>Name steps and measures clearly — so it stays maintainable</li>
+        </ul>
+        <ul lang="es">
+          <li>Conectar las fuentes directamente — sin copiar y pegar</li>
+          <li>Todas las transformaciones en Power Query — no en Excel ni a mano</li>
+          <li>Modelo de datos limpio (relaciones, estrella) — no una sola tabla plana</li>
+          <li>Publicar + programar la actualización — sin archivos enviados por correo</li>
+          <li>Nombrar claramente los pasos y las medidas — para que sea mantenible</li>
+        </ul>
+
+        <div class="detail" lang="fr">À chaque réflexe correspond un piège classique : données copiées à la main (erreurs de saisie, oublis) ; transformations bricolées dans Excel (non reproductibles) ; un tableau unique géant (lent, redondant) ; un fichier renvoyé chaque semaine (versions multiples, perte de temps) ; des étapes nommées « Étape 1 », « Étape 2 »... (personne ne comprend plus le pipeline six mois après).</div>
+        <div class="detail" lang="en">Each good habit has a classic trap on the other side: hand-copied data (typos, omissions); transformations hacked together in Excel (not reproducible); one giant flat table (slow, redundant); a file re-sent every week (multiple versions, wasted time); steps named "Step 1", "Step 2"... (nobody understands the pipeline six months later).</div>
+        <div class="detail" lang="es">Cada buen hábito tiene su trampa clásica enfrente: datos copiados a mano (errores, olvidos); transformaciones improvisadas en Excel (no reproducibles); una sola tabla gigante y plana (lenta, redundante); un archivo reenviado cada semana (varias versiones, tiempo perdido); pasos llamados «Paso 1», «Paso 2»... (nadie entiende el proceso seis meses después).</div>
+
+        <aside class="notes">Clôture de la session — relier chaque point à une démo vue plus tôt dans la journée.</aside>
+      </section>
+
+      <!-- 9. Section : Glossaire -->
+      <section class="section center">
+        <h2 lang="fr">Glossaire</h2>
+        <h2 lang="en">Glossary</h2>
+        <h2 lang="es">Glosario</h2>
+      </section>
+
+      <!-- 9a : Glossaire - Données / Pipeline -->
+      <section>
+        <span class="eyebrow" lang="fr">Glossaire</span>
+        <span class="eyebrow" lang="en">Glossary</span>
+        <span class="eyebrow" lang="es">Glosario</span>
+
+        <h2 lang="fr">Données &amp; pipeline</h2>
+        <h2 lang="en">Data &amp; pipeline</h2>
+        <h2 lang="es">Datos y proceso</h2>
+
+        <table>
+          <tr lang="fr"><td><strong>Source de données</strong></td><td>Origine des données (fichier, base de données, API...) à laquelle Power BI se connecte.</td></tr>
+          <tr lang="en"><td><strong>Data source</strong></td><td>The origin of data (file, database, API...) that Power BI connects to.</td></tr>
+          <tr lang="es"><td><strong>Fuente de datos</strong></td><td>Origen de los datos (archivo, base de datos, API...) al que se conecta Power BI.</td></tr>
+
+          <tr lang="fr"><td><strong>Requête</strong></td><td>Ensemble des étapes Power Query appliquées à une source pour produire une table.</td></tr>
+          <tr lang="en"><td><strong>Query</strong></td><td>The set of Power Query steps applied to a source to produce a table.</td></tr>
+          <tr lang="es"><td><strong>Consulta</strong></td><td>Conjunto de pasos de Power Query aplicados a una fuente para producir una tabla.</td></tr>
+
+          <tr lang="fr"><td><strong>Étape de transformation</strong></td><td>Une action enregistrée (filtrer, renommer, fusionner...) rejouée automatiquement à chaque actualisation.</td></tr>
+          <tr lang="en"><td><strong>Transformation step</strong></td><td>A recorded action (filter, rename, merge...) replayed automatically on every refresh.</td></tr>
+          <tr lang="es"><td><strong>Paso de transformación</strong></td><td>Una acción registrada (filtrar, renombrar, combinar...) que se repite automáticamente en cada actualización.</td></tr>
+
+          <tr lang="fr"><td><strong>Actualisation (refresh)</strong></td><td>Le processus qui relance les requêtes pour récupérer les données les plus récentes.</td></tr>
+          <tr lang="en"><td><strong>Refresh</strong></td><td>The process that re-runs queries to fetch the latest data.</td></tr>
+          <tr lang="es"><td><strong>Actualización</strong></td><td>El proceso que vuelve a ejecutar las consultas para obtener los datos más recientes.</td></tr>
+
+          <tr lang="fr"><td><strong>Dataflow</strong></td><td>Un pipeline Power Query réutilisable, stocké dans le cloud et partageable entre plusieurs rapports.</td></tr>
+          <tr lang="en"><td><strong>Dataflow</strong></td><td>A reusable Power Query pipeline, stored in the cloud and shareable across multiple reports.</td></tr>
+          <tr lang="es"><td><strong>Dataflow</strong></td><td>Un proceso de Power Query reutilizable, almacenado en la nube y compartible entre varios informes.</td></tr>
+        </table>
+      </section>
+
+      <!-- 9b : Glossaire - Modélisation I -->
+      <section>
+        <span class="eyebrow" lang="fr">Glossaire</span>
+        <span class="eyebrow" lang="en">Glossary</span>
+        <span class="eyebrow" lang="es">Glosario</span>
+
+        <h2 lang="fr">Modélisation (1/2)</h2>
+        <h2 lang="en">Modeling (1/2)</h2>
+        <h2 lang="es">Modelado (1/2)</h2>
+
+        <table>
+          <tr lang="fr"><td><strong>Modèle de données</strong></td><td>L'ensemble des tables et de leurs relations, tel qu'il apparaît dans la vue Modèle.</td></tr>
+          <tr lang="en"><td><strong>Data model</strong></td><td>The set of tables and their relationships, as shown in the Model view.</td></tr>
+          <tr lang="es"><td><strong>Modelo de datos</strong></td><td>El conjunto de tablas y sus relaciones, tal como aparece en la vista Modelo.</td></tr>
+
+          <tr lang="fr"><td><strong>Relation</strong></td><td>Un lien entre une colonne clé de deux tables, défini une fois pour relier automatiquement leurs données.</td></tr>
+          <tr lang="en"><td><strong>Relationship</strong></td><td>A link between a key column in two tables, defined once to automatically connect their data.</td></tr>
+          <tr lang="es"><td><strong>Relación</strong></td><td>Un vínculo entre una columna clave de dos tablas, definido una vez para conectar automáticamente sus datos.</td></tr>
+
+          <tr lang="fr"><td><strong>Cardinalité</strong></td><td>Le type de relation entre deux tables : un-à-plusieurs, un-à-un, plusieurs-à-plusieurs.</td></tr>
+          <tr lang="en"><td><strong>Cardinality</strong></td><td>The type of relationship between two tables: one-to-many, one-to-one, many-to-many.</td></tr>
+          <tr lang="es"><td><strong>Cardinalidad</strong></td><td>El tipo de relación entre dos tablas: uno a varios, uno a uno, varios a varios.</td></tr>
+
+          <tr lang="fr"><td><strong>Table de faits</strong></td><td>La table centrale contenant les mesures (ventes, coûts, heures...), avec une ligne par événement.</td></tr>
+          <tr lang="en"><td><strong>Fact table</strong></td><td>The central table containing measures (sales, costs, hours...), with one row per event.</td></tr>
+          <tr lang="es"><td><strong>Tabla de hechos</strong></td><td>La tabla central que contiene las métricas (ventas, costes, horas...), con una fila por evento.</td></tr>
+
+          <tr lang="fr"><td><strong>Table de dimension</strong></td><td>Une table décrivant un axe d'analyse (date, projet, fournisseur...), avec une ligne par élément.</td></tr>
+          <tr lang="en"><td><strong>Dimension table</strong></td><td>A table describing an analysis axis (date, project, supplier...), with one row per item.</td></tr>
+          <tr lang="es"><td><strong>Tabla de dimensión</strong></td><td>Una tabla que describe un eje de análisis (fecha, proyecto, proveedor...), con una fila por elemento.</td></tr>
+        </table>
+      </section>
+
+      <!-- 9c : Glossaire - Modélisation II -->
+      <section>
+        <span class="eyebrow" lang="fr">Glossaire</span>
+        <span class="eyebrow" lang="en">Glossary</span>
+        <span class="eyebrow" lang="es">Glosario</span>
+
+        <h2 lang="fr">Modélisation (2/2)</h2>
+        <h2 lang="en">Modeling (2/2)</h2>
+        <h2 lang="es">Modelado (2/2)</h2>
+
+        <table>
+          <tr lang="fr"><td><strong>Modèle en étoile</strong></td><td>Une table de faits entourée de ses tables de dimensions — l'architecture recommandée pour la performance et la clarté.</td></tr>
+          <tr lang="en"><td><strong>Star schema</strong></td><td>A fact table surrounded by its dimension tables — the recommended architecture for performance and clarity.</td></tr>
+          <tr lang="es"><td><strong>Modelo en estrella</strong></td><td>Una tabla de hechos rodeada de sus tablas de dimensiones: la arquitectura recomendada por rendimiento y claridad.</td></tr>
+
+          <tr lang="fr"><td><strong>Mesure</strong></td><td>Un calcul agrégé (somme, moyenne, ratio...) défini en DAX, recalculé dynamiquement selon le contexte du visuel.</td></tr>
+          <tr lang="en"><td><strong>Measure</strong></td><td>An aggregated calculation (sum, average, ratio...) defined in DAX, recalculated dynamically based on the visual's context.</td></tr>
+          <tr lang="es"><td><strong>Medida</strong></td><td>Un cálculo agregado (suma, promedio, ratio...) definido en DAX, que se recalcula dinámicamente según el contexto del visual.</td></tr>
+
+          <tr lang="fr"><td><strong>Colonne calculée</strong></td><td>Une colonne ajoutée à une table via une formule DAX, calculée ligne par ligne et stockée dans le modèle.</td></tr>
+          <tr lang="en"><td><strong>Calculated column</strong></td><td>A column added to a table via a DAX formula, calculated row by row and stored in the model.</td></tr>
+          <tr lang="es"><td><strong>Columna calculada</strong></td><td>Una columna añadida a una tabla mediante una fórmula DAX, calculada fila por fila y almacenada en el modelo.</td></tr>
+
+          <tr lang="fr"><td><strong>DAX</strong></td><td>Le langage de formules de Power BI (Data Analysis eXpressions), utilisé pour les mesures et colonnes calculées.</td></tr>
+          <tr lang="en"><td><strong>DAX</strong></td><td>Power BI's formula language (Data Analysis eXpressions), used for measures and calculated columns.</td></tr>
+          <tr lang="es"><td><strong>DAX</strong></td><td>El lenguaje de fórmulas de Power BI (Data Analysis eXpressions), utilizado para medidas y columnas calculadas.</td></tr>
+        </table>
+      </section>
+
+      <!-- 9d : Glossaire - Visualisation / Rapport -->
+      <section>
+        <span class="eyebrow" lang="fr">Glossaire</span>
+        <span class="eyebrow" lang="en">Glossary</span>
+        <span class="eyebrow" lang="es">Glosario</span>
+
+        <h2 lang="fr">Visualisation &amp; rapport</h2>
+        <h2 lang="en">Visualization &amp; report</h2>
+        <h2 lang="es">Visualización e informe</h2>
+
+        <table>
+          <tr lang="fr"><td><strong>Visuel</strong></td><td>Un élément graphique du rapport (graphique, tableau, carte, KPI...) affichant des données selon des champs choisis.</td></tr>
+          <tr lang="en"><td><strong>Visual</strong></td><td>A graphical element of the report (chart, table, map, KPI...) displaying data based on chosen fields.</td></tr>
+          <tr lang="es"><td><strong>Visual</strong></td><td>Un elemento gráfico del informe (gráfico, tabla, mapa, KPI...) que muestra datos según los campos elegidos.</td></tr>
+
+          <tr lang="fr"><td><strong>Segment (slicer)</strong></td><td>Un filtre visuel et interactif placé sur la page, que l'utilisateur peut manipuler directement.</td></tr>
+          <tr lang="en"><td><strong>Slicer</strong></td><td>A visual, interactive filter placed on the page, that the user can manipulate directly.</td></tr>
+          <tr lang="es"><td><strong>Segmentador (slicer)</strong></td><td>Un filtro visual e interactivo colocado en la página, que el usuario puede manipular directamente.</td></tr>
+
+          <tr lang="fr"><td><strong>Page de rapport</strong></td><td>Un onglet du rapport regroupant un ensemble de visuels autour d'un thème.</td></tr>
+          <tr lang="en"><td><strong>Report page</strong></td><td>A report tab grouping a set of visuals around a theme.</td></tr>
+          <tr lang="es"><td><strong>Página de informe</strong></td><td>Una pestaña del informe que agrupa un conjunto de visuales en torno a un tema.</td></tr>
+
+          <tr lang="fr"><td><strong>Interactivité croisée (cross-filtering)</strong></td><td>Le fait que cliquer sur un élément d'un visuel filtre automatiquement les autres visuels de la page.</td></tr>
+          <tr lang="en"><td><strong>Cross-filtering</strong></td><td>The fact that clicking an element in one visual automatically filters the other visuals on the page.</td></tr>
+          <tr lang="es"><td><strong>Interactividad cruzada (filtrado cruzado)</strong></td><td>El hecho de que al hacer clic en un elemento de un visual se filtren automáticamente los demás visuales de la página.</td></tr>
+
+          <tr lang="fr"><td><strong>Favoris (bookmarks)</strong></td><td>Un état enregistré du rapport (filtres, sélections, visibilité) qu'on peut rappeler en un clic.</td></tr>
+          <tr lang="en"><td><strong>Bookmarks</strong></td><td>A saved state of the report (filters, selections, visibility) that can be recalled with one click.</td></tr>
+          <tr lang="es"><td><strong>Marcadores (bookmarks)</strong></td><td>Un estado guardado del informe (filtros, selecciones, visibilidad) que se puede recuperar con un clic.</td></tr>
+        </table>
+      </section>
+
+      <!-- 9e : Glossaire - Publication / Partage -->
+      <section>
+        <span class="eyebrow" lang="fr">Glossaire</span>
+        <span class="eyebrow" lang="en">Glossary</span>
+        <span class="eyebrow" lang="es">Glosario</span>
+
+        <h2 lang="fr">Publication &amp; partage</h2>
+        <h2 lang="en">Publishing &amp; sharing</h2>
+        <h2 lang="es">Publicación y compartición</h2>
+
+        <table>
+          <tr lang="fr"><td><strong>Workspace</strong></td><td>Un espace de travail partagé dans Power BI Service où une équipe développe et met à jour ses rapports.</td></tr>
+          <tr lang="en"><td><strong>Workspace</strong></td><td>A shared workspace in Power BI Service where a team develops and maintains its reports.</td></tr>
+          <tr lang="es"><td><strong>Workspace</strong></td><td>Un espacio de trabajo compartido en Power BI Service donde un equipo desarrolla y mantiene sus informes.</td></tr>
+
+          <tr lang="fr"><td><strong>App</strong></td><td>Une vue consolidée et figée d'un workspace, distribuée aux utilisateurs finaux.</td></tr>
+          <tr lang="en"><td><strong>App</strong></td><td>A consolidated, packaged view of a workspace, distributed to end users.</td></tr>
+          <tr lang="es"><td><strong>App</strong></td><td>Una vista consolidada y empaquetada de un workspace, distribuida a los usuarios finales.</td></tr>
+
+          <tr lang="fr"><td><strong>Power BI Service</strong></td><td>Le portail en ligne (Power BI Online) où sont publiés, partagés et actualisés les rapports.</td></tr>
+          <tr lang="en"><td><strong>Power BI Service</strong></td><td>The online portal (Power BI Online) where reports are published, shared and refreshed.</td></tr>
+          <tr lang="es"><td><strong>Power BI Service</strong></td><td>El portal en línea (Power BI Online) donde se publican, comparten y actualizan los informes.</td></tr>
+
+          <tr lang="fr"><td><strong>Passerelle de données (gateway)</strong></td><td>Un composant installé sur le réseau de l'entreprise qui permet à Power BI Service d'accéder à des sources internes pour l'actualisation automatique.</td></tr>
+          <tr lang="en"><td><strong>Gateway</strong></td><td>A component installed on the company network that lets Power BI Service access internal sources for automatic refresh.</td></tr>
+          <tr lang="es"><td><strong>Gateway de datos</strong></td><td>Un componente instalado en la red de la empresa que permite a Power BI Service acceder a fuentes internas para la actualización automática.</td></tr>
+
+          <tr lang="fr"><td><strong>Licence Pro / PPU / Premium</strong></td><td>Les niveaux d'abonnement qui déterminent qui peut créer, publier ou simplement consulter des rapports.</td></tr>
+          <tr lang="en"><td><strong>Pro / PPU / Premium license</strong></td><td>The subscription tiers that determine who can create, publish, or just view reports.</td></tr>
+          <tr lang="es"><td><strong>Licencia Pro / PPU / Premium</strong></td><td>Los niveles de suscripción que determinan quién puede crear, publicar o simplemente consultar informes.</td></tr>
+        </table>
+      </section>
+
+      <!-- 10. Conclusion -->
+      <section class="title center">
+        <h1 lang="fr">Merci</h1>
+        <h1 lang="en">Thank you</h1>
+        <h1 lang="es">Gracias</h1>
+        <p class="subtitle" lang="fr">Place à la pratique !</p>
+        <p class="subtitle" lang="en">Now, let's get hands-on!</p>
+        <p class="subtitle" lang="es">¡Ahora, a la práctica!</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      plugins: [ RevealNotes, RevealHighlight ]
+    }).then(function () {
+      var root = document.documentElement;
+
+      function applyLang(lang) {
+        root.setAttribute('data-lang', lang);
+        root.setAttribute('lang', lang);
+        document.querySelectorAll('.lang-switch [data-set-lang]').forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-set-lang') === lang ? 'true' : 'false');
+        });
+        localStorage.setItem('slide-lang', lang);
+        Reveal.layout();
+      }
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('slide-theme', theme);
+      }
+
+      function applyDetail(level) {
+        root.setAttribute('data-detail', level);
+        document.querySelectorAll('.detail-switch [data-set-detail]').forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-set-detail') === level ? 'true' : 'false');
+        });
+        localStorage.setItem('slide-detail', level);
+        Reveal.layout();
+      }
+
+      document.querySelectorAll('.lang-switch [data-set-lang]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyLang(btn.getAttribute('data-set-lang'));
+        });
+      });
+
+      document.querySelector('[data-toggle-theme]').addEventListener('click', function () {
+        applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      });
+
+      document.querySelectorAll('.detail-switch [data-set-detail]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyDetail(btn.getAttribute('data-set-detail'));
+        });
+      });
+
+      applyLang(localStorage.getItem('slide-lang') || 'fr');
+      applyTheme(localStorage.getItem('slide-theme') || 'light');
+      applyDetail(localStorage.getItem('slide-detail') || 'light');
+    });
+  </script>
+</body>
+</html>
