@@ -103,6 +103,16 @@ html, body {
   height: 100%;
 }
 
+/* Le scroll-snap doit être posé sur <html> : c'est l'élément qui scrolle
+   réellement (le navigateur propage l'overflow de <body> vers le viewport,
+   mais pas scroll-snap-type — le poser sur <body> est silencieusement
+   sans effet). */
+html {
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
   font-size: 18px;
@@ -111,10 +121,6 @@ body {
   color: var(--text);
   background-color: var(--bg);
   letter-spacing: 0;
-  height: 100vh;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
 }
 
 /* ---------- Slides ---------- */
@@ -501,10 +507,12 @@ blockquote {
 /* Ouvrir index.html?print-pdf : chaque .slide devient une page imprimée. */
 
 @media print {
-  body {
-    height: auto;
+  html {
     overflow: visible;
     scroll-snap-type: none;
+  }
+  body {
+    height: auto;
   }
   .slide {
     min-height: 100vh;
