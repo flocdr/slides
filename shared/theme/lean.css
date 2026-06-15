@@ -1,47 +1,56 @@
 /*
- * "Lean" Reveal.js theme — usine à slides
+ * "Lean" theme — usine à slides (HTML/CSS classique, sans framework)
  *
- * Esthétique sobre inspirée des design systems modernes (type/espacement
- * généreux, une seule couleur d'accent, pas de dégradés ni d'ombres lourdes).
+ * Esthétique inspirée de shadcn/ui : palette neutre (zinc), bordures fines,
+ * coins arrondis, ombres très discrètes, typographie généreuse. Chaque
+ * "slide" est une section plein écran avec scroll-snap — on navigue au
+ * scroll, aux flèches, ou en swipant, comme sur un site, pas un PowerPoint.
  *
  * Personnalisation par deck : surcharger les variables --accent, --bg, etc.
- * dans une feuille de style chargée APRÈS ce fichier (voir shared/theme/README
- * ou le commentaire en tête de chaque index.html généré).
+ * dans un <style> chargé APRÈS ce fichier (voir template.html).
  */
 
 :root {
   --bg: #ffffff;
-  --bg-alt: #f7f7f8;
-  --text: #1a1a1e;
-  --text-muted: #6b6b76;
+  --bg-alt: #f4f4f5;
+  --text: #09090b;
+  --text-muted: #71717a;
   --accent: #4f46e5;
   --accent-contrast: #ffffff;
-  --border: #e5e5ea;
+  --border: #e4e4e7;
   --code-bg: #f4f4f6;
   --code-string: #15803d;
   --code-number: #b45309;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.06);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
 
   --font-sans: "Inter", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 
-  --r-heading-line-height: 1.15;
-  --r-block-margin: 24px;
+  --block-margin: 24px;
+  --slide-max-width: 1080px;
 }
 
 /* ---------- Dark mode ---------- */
 /* Activé via [data-theme="dark"] sur <html> (voir template.html) */
 
 :root[data-theme="dark"] {
-  --bg: #18181b;
-  --bg-alt: #232328;
-  --text: #f4f4f5;
+  --bg: #09090b;
+  --bg-alt: #18181b;
+  --text: #fafafa;
   --text-muted: #a1a1aa;
   --accent: #818cf8;
-  --accent-contrast: #18181b;
-  --border: #33333a;
-  --code-bg: #232328;
+  --accent-contrast: #09090b;
+  --border: #27272a;
+  --code-bg: #18181b;
   --code-string: #86efac;
   --code-number: #fbbf24;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5);
 }
 
 /* ---------- i18n ---------- */
@@ -69,95 +78,116 @@
   display: none !important;
 }
 
-.reveal .detail {
-  margin-top: var(--r-block-margin);
+.detail {
+  margin-top: var(--block-margin);
   padding: 14px 20px;
   border-left: 3px solid var(--accent);
   background: var(--bg-alt);
-  border-radius: 0 8px 8px 0;
-  font-size: 0.8em;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.85em;
   color: var(--text-muted);
 }
 
-.reveal .detail > :last-child {
+.detail > :last-child {
   margin-bottom: 0;
 }
 
 /* ---------- Base ---------- */
 
-.reveal {
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
   font-family: var(--font-sans);
-  font-size: 30px;
+  font-size: 18px;
   font-weight: 400;
+  line-height: 1.6;
   color: var(--text);
   background-color: var(--bg);
   letter-spacing: 0;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
 
-.reveal .slides section {
+/* ---------- Slides ---------- */
+/* Chaque <section class="slide"> occupe (au moins) un écran et s'aligne au
+   scroll-snap. Si le contenu dépasse (mode "full" avec .detail), la section
+   s'étire simplement — on scrolle naturellement à l'intérieur. */
+
+.slide {
+  min-height: 100vh;
+  width: min(100%, var(--slide-max-width));
+  margin: 0 auto;
+  padding: 64px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: left;
-  padding: 64px 80px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
-.reveal .slides {
-  text-align: left;
-}
-
-/* Slides marked .center keep the classic centered layout (titres, citations) */
-.reveal .slides section.center {
+/* Slides marquées .center : layout centré (titres, séparateurs, citations) */
+.slide.center {
+  align-items: center;
   text-align: center;
 }
 
 /* ---------- Headings ---------- */
 
-.reveal h1,
-.reveal h2,
-.reveal h3,
-.reveal h4 {
+h1, h2, h3, h4 {
   font-family: var(--font-sans);
   color: var(--text);
   font-weight: 700;
-  line-height: var(--r-heading-line-height);
+  line-height: 1.15;
   letter-spacing: -0.01em;
   text-transform: none;
   margin: 0 0 0.5em 0;
 }
 
-.reveal h1 { font-size: 2.6em; }
-.reveal h2 { font-size: 1.8em; }
-.reveal h3 { font-size: 1.3em; color: var(--text-muted); font-weight: 600; }
-.reveal h4 { font-size: 1.05em; color: var(--text-muted); font-weight: 600; }
+h1 { font-size: clamp(2em, 5vw, 3em); }
+h2 { font-size: clamp(1.5em, 3.4vw, 2em); }
+h3 { font-size: 1.3em; color: var(--text-muted); font-weight: 600; }
+h4 { font-size: 1.05em; color: var(--text-muted); font-weight: 600; }
 
 /* Eyebrow / kicker au-dessus du titre de slide */
-.reveal .eyebrow {
+.eyebrow {
   display: block;
-  font-size: 0.5em;
+  font-size: 0.8em;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 0.6em;
+  margin-bottom: 0.8em;
 }
 
 /* ---------- Text ---------- */
 
-.reveal p {
-  margin: 0 0 var(--r-block-margin) 0;
-  line-height: 1.5;
+p {
+  margin: 0 0 var(--block-margin) 0;
+  line-height: 1.6;
 }
 
-.reveal .lead {
+.lead {
   font-size: 1.3em;
   color: var(--text-muted);
   font-weight: 400;
 }
 
-.reveal strong {
+strong {
   font-weight: 600;
   color: var(--text);
 }
 
-.reveal a {
+a {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-color: var(--border);
@@ -166,25 +196,24 @@
 
 /* ---------- Lists ---------- */
 
-.reveal ul,
-.reveal ol {
+ul, ol {
   display: block;
-  margin: 0 0 var(--r-block-margin) 0;
+  margin: 0 0 var(--block-margin) 0;
   padding-left: 1em;
 }
 
-.reveal li {
+li {
   margin-bottom: 0.45em;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
-.reveal ul { list-style: none; }
-.reveal ul > li { padding-left: 1.4em; position: relative; }
-.reveal ul > li::before {
+ul { list-style: none; }
+ul > li { padding-left: 1.4em; position: relative; }
+ul > li::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.55em;
+  top: 0.6em;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -193,23 +222,25 @@
 
 /* ---------- Code ---------- */
 
-.reveal pre {
+pre {
   width: 100%;
-  margin: var(--r-block-margin) 0;
+  margin: var(--block-margin) 0;
   box-shadow: none;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--code-bg);
+  overflow: auto;
 }
 
-.reveal pre code {
+pre code {
+  display: block;
   font-family: var(--font-mono);
   padding: 16px 20px;
-  max-height: none;
-  border-radius: 8px;
+  font-size: 0.85em;
+  line-height: 1.5;
 }
 
-.reveal code {
+code {
   font-family: var(--font-mono);
   background: var(--code-bg);
   border-radius: 4px;
@@ -248,21 +279,21 @@
 
 /* ---------- Tables ---------- */
 
-.reveal table {
+table {
   width: 100%;
   border-collapse: collapse;
-  margin: var(--r-block-margin) 0;
-  font-size: 0.85em;
+  margin: var(--block-margin) 0;
+  font-size: 0.9em;
 }
 
-.reveal table th,
-.reveal table td {
+table th,
+table td {
   border-bottom: 1px solid var(--border);
-  padding: 0.5em 0.8em;
+  padding: 0.6em 0.9em;
   text-align: left;
 }
 
-.reveal table th {
+table th {
   color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
@@ -273,37 +304,38 @@
 /* ---------- Cards / grid helpers ---------- */
 /* Utilitaires simples pour composer des layouts sans CSS custom par slide */
 
-.reveal .grid {
+.grid {
   display: grid;
   gap: 24px;
   width: 100%;
 }
 
-.reveal .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
-.reveal .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
-.reveal .card {
+.card {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 24px;
-  background: var(--bg-alt);
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
 }
 
-.reveal .card h3,
-.reveal .card h4 {
+.card h3,
+.card h4 {
   margin-top: 0;
 }
 
-.reveal .stat {
+.stat {
   font-size: 2.4em;
   font-weight: 700;
   color: var(--accent);
   line-height: 1;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.3em;
 }
 
-.reveal .stat-label {
-  font-size: 0.6em;
+.stat-label {
+  font-size: 0.8em;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -312,56 +344,56 @@
 
 /* ---------- Title / section slides ---------- */
 
-.reveal section.title h1 {
-  font-size: 3em;
+.slide.title h1 {
+  font-size: clamp(2.4em, 6vw, 3.6em);
 }
 
-.reveal section.title .subtitle {
-  font-size: 1.2em;
+.slide.title .subtitle {
+  font-size: 1.25em;
   color: var(--text-muted);
   margin-top: 0.5em;
 }
 
-.reveal section.section h2 {
-  font-size: 2.2em;
+.slide.section h2 {
+  font-size: clamp(1.8em, 4.5vw, 2.6em);
   color: var(--accent);
-}
-
-/* ---------- Footer / branding ---------- */
-
-.reveal .slide-number {
-  color: var(--text-muted);
-  font-size: 0.5em;
-  background: transparent;
-}
-
-.reveal .progress {
-  color: var(--accent);
-  height: 3px;
 }
 
 /* ---------- Images ---------- */
 
-.reveal section img {
+.slide img {
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.slide.title img,
+.slide.center img {
   border: none;
   box-shadow: none;
-  border-radius: 8px;
 }
 
 /* ---------- Blockquote ---------- */
 
-.reveal blockquote {
+blockquote {
   border-left: 3px solid var(--accent);
   padding-left: 24px;
+  margin: var(--block-margin) 0;
   font-style: normal;
   color: var(--text-muted);
   width: 100%;
-  box-shadow: none;
-  background: transparent;
 }
 
-/* ---------- Switcher langue / thème ---------- */
-/* Barre flottante générée par template.html, hors du flux des slides */
+/* ---------- Speaker notes ---------- */
+/* Notes orateur : jamais affichées dans le deck lui-même (visibles
+   uniquement dans le code source / en lecture du brief). */
+
+.notes {
+  display: none;
+}
+
+/* ---------- Deck controls (switcher langue / thème / détail) ---------- */
 
 .deck-controls {
   position: fixed;
@@ -380,7 +412,8 @@
   border: 1px solid var(--border);
   border-radius: 999px;
   overflow: hidden;
-  background: var(--bg-alt);
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
 }
 
 .deck-controls .lang-switch button,
@@ -396,6 +429,12 @@
   cursor: pointer;
   padding: 6px 12px;
   line-height: 1;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.deck-controls .lang-switch button:hover,
+.deck-controls .detail-switch button:hover {
+  background: var(--bg-alt);
 }
 
 .deck-controls .lang-switch button[aria-pressed="true"],
@@ -407,13 +446,73 @@
 .deck-controls .theme-switch {
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: var(--bg-alt);
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
   padding: 6px 10px;
   font-size: 14px;
 }
 
+.deck-controls .theme-switch:hover {
+  background: var(--bg-alt);
+}
+
+/* ---------- Progress bar / slide counter ---------- */
+/* Indicateur de position dans le deck, géré en JS simple (IntersectionObserver). */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 101;
+  transition: width 0.2s ease;
+}
+
+.slide-counter {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 100;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 760px) {
+  .slide {
+    padding: 48px 24px;
+  }
+  .grid.cols-2,
+  .grid.cols-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Print / PDF export ---------- */
+/* Ouvrir index.html?print-pdf : chaque .slide devient une page imprimée. */
+
 @media print {
-  .deck-controls {
-    display: none;
+  body {
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .slide {
+    min-height: 100vh;
+    page-break-after: always;
+  }
+  .deck-controls,
+  .progress-bar,
+  .slide-counter {
+    display: none !important;
   }
 }

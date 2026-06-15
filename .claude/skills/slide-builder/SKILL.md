@@ -1,13 +1,13 @@
 ---
 name: slide-builder
-description: Génère un deck de slides HTML (Reveal.js, thème "lean" partagé) à partir d'un fichier brief.md produit par le skill slide-interview. À utiliser quand l'utilisateur veut construire, générer ou mettre à jour le HTML/les assets d'une présentation.
+description: Génère un deck de slides en HTML/CSS classique (thème "lean" partagé, esprit shadcn) à partir d'un fichier brief.md produit par le skill slide-interview. À utiliser quand l'utilisateur veut construire, générer ou mettre à jour le HTML/les assets d'une présentation.
 ---
 
 # Slide Builder
 
 Transforme un `brief.md` (plan + contenu validés) en une présentation
-Reveal.js statique, prête à être ouverte dans un navigateur ou exportée en
-PDF.
+statique en HTML/CSS classique (pas de framework JS), prête à être ouverte
+dans un navigateur, partagée comme simple fichier, ou exportée en PDF.
 
 ## Pré-requis
 
@@ -27,25 +27,31 @@ PDF.
      `<sous-projet>/slides/index.html` comme point de départ (chemins
      relatifs vers `../../shared/theme/lean.css` à vérifier selon la
      profondeur du dossier). Ce template contient déjà la barre
-     `.deck-controls` (switcher FR/EN/ES + mode sombre) et la logique JS
-     associée — **toujours la conserver**, ne pas la recréer.
+     `.deck-controls` (switcher FR/EN/ES + mode sombre + niveau de détail),
+     la barre de progression, le compteur de slides et la navigation
+     clavier — **toujours les conserver**, ne pas les recréer.
 
-3. **Générer les sections** : une `<section>` par slide du plan.
-   - **Slide de titre** : `<section class="title center">` avec `<h1>` +
-     `.subtitle`.
-   - **Séparateurs de partie** : `<section class="section center">` avec
-     un `<h2>`.
-   - **Contenu** : `<section>` standard. Utiliser `<span class="eyebrow">`
-     pour rappeler la section/le fil rouge, `<h2>` pour le titre de slide,
-     puis le contenu (liste, paragraphe, image, code).
+3. **Générer les sections** : une `<section class="slide ...">` par slide du
+   plan. Chaque slide occupe (au moins) un écran et s'enchaîne au scroll
+   (scroll-snap) — c'est une page web normale, pas un moteur de
+   présentation.
+   - **Slide de titre** : `<section class="slide title center">` avec
+     `<h1>` + `.subtitle`.
+   - **Séparateurs de partie** : `<section class="slide section center">`
+     avec un `<h2>`.
+   - **Contenu** : `<section class="slide">` standard, texte aligné à
+     gauche. Utiliser `<span class="eyebrow">` pour rappeler la
+     section/le fil rouge, `<h2>` pour le titre de slide, puis le contenu
+     (liste, paragraphe, image, code).
    - **Chiffres clés / comparaisons** : utiliser les classes utilitaires
      `.grid.cols-2` / `.grid.cols-3` + `.card`, `.stat` / `.stat-label`
      (voir le template pour des exemples).
-   - **Code / DAX / M / requêtes** : `<pre><code class="language-xxx"
-     data-trim>`. Le plugin `highlight` est déjà chargé.
+   - **Code / DAX / M / requêtes** : `<pre><code class="language-xxx">`.
+     `highlight.js` est chargé via CDN et s'applique automatiquement.
    - **Citations** : `<blockquote>`.
-   - **Notes orateur** : `<aside class="notes">...</aside>` à l'intérieur
-     de la section, repris depuis "Notes orateur" du brief.
+   - **Notes orateur** : `<div class="notes">...</div>` à l'intérieur de la
+     section, repris depuis "Notes orateur" du brief. Cette classe est
+     masquée dans le deck (visible seulement dans le code source).
 
 4. **Couleur d'accent / branding** : si le brief précise des contraintes de
    couleur, surcharger `--accent` (et au besoin `--bg`, `--text`) dans un
@@ -88,7 +94,7 @@ template) et un mode sombre. Le mécanisme est géré par
   (Power BI, DAX, M, Power Query, noms de mesures/colonnes...), et le
   contenu du code (`<pre><code>`) — ces éléments restent uniques, sans
   attribut `lang`, donc toujours visibles.
-- **Notes orateur** (`<aside class="notes">`) restent en français
+- **Notes orateur** (`<div class="notes">`) restent en français
   uniquement (pas de variantes par langue).
 - **Couleurs** : ne jamais coder une couleur en dur dans le HTML/CSS d'un
   deck — toujours utiliser les variables (`var(--bg)`, `var(--text)`,
@@ -100,7 +106,7 @@ template) et un mode sombre. Le mécanisme est géré par
   contenu dans les 3 langues ET dans les 2 thèmes (clair/sombre) avant de
   conclure.
 
-## Principes de design ("lean")
+## Principes de design ("lean", esprit shadcn)
 
 - **Une idée par slide.** Si une slide du brief contient trop d'éléments,
   proposer de la scinder en plusieurs slides plutôt que de surcharger.
@@ -110,16 +116,30 @@ template) et un mode sombre. Le mécanisme est géré par
   section, chiffres clés, liens, puces).
 - **Beaucoup d'espace blanc** : ne pas chercher à remplir la slide, le
   thème `lean.css` a déjà des marges généreuses — ne pas les réduire.
+- **Cartes et coins arrondis discrets** : `.card` apporte une bordure fine,
+  un coin arrondi (`--radius-lg`) et une ombre très légère (`--shadow-sm`) —
+  c'est la texture de base pour donner un feeling "site web moderne" plutôt
+  que "diapo". Ne pas ajouter de dégradés ni d'ombres lourdes.
 - **Cohérence** : réutiliser les classes utilitaires du thème (`eyebrow`,
   `grid`, `card`, `stat`) plutôt que d'introduire des styles ad hoc par
   slide. Si un besoin récurrent n'est pas couvert par `shared/theme/lean.css`,
   l'ajouter au thème partagé (pas en inline) pour que les futurs decks en
   profitent aussi.
 
+## Navigation
+
+Le deck se parcourt comme une page web : scroll (souris/trackpad/tactile),
+flèches haut/bas, Page Up/Down ou barre d'espace (gérés par le script du
+template). La barre de progression et le compteur de slides en bas à droite
+sont mis à jour automatiquement via `IntersectionObserver` — ne pas les
+recalculer manuellement.
+
 ## Export PDF
 
-Reveal.js permet l'export PDF via le navigateur : ouvrir
-`index.html?print-pdf` et imprimer en PDF (sans marges, fond activé).
+Ouvrir `index.html?print-pdf` et imprimer en PDF (sans marges, fond
+activé). Ce mode force automatiquement le niveau de détail "complet"
+(`data-detail="full"`) et chaque `.slide` devient une page (voir les règles
+`@media print` de `lean.css`).
 
 ## Sortie
 
