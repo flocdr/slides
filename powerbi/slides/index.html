@@ -736,9 +736,9 @@
     <span class="eyebrow" lang="en">Decision guide</span>
     <span class="eyebrow" lang="es">Guía de decisión</span>
 
-    <h2 lang="fr">Power Query ou DAX — le bon endroit pour chaque logique</h2>
-    <h2 lang="en">Power Query or DAX — the right place for each logic</h2>
-    <h2 lang="es">Power Query o DAX — el lugar correcto para cada lógica</h2>
+    <h2 lang="fr">Power Query ou DAX ?</h2>
+    <h2 lang="en">Power Query or DAX?</h2>
+    <h2 lang="es">¿Power Query o DAX?</h2>
 
     <div class="grid cols-2">
       <div class="card">
@@ -749,24 +749,18 @@
           <span class="eco-badge eco-scheduled" lang="es">⏱ Programado</span>
         </div>
         <ul lang="fr">
-          <li>Nettoyage, filtrage, renommages</li>
-          <li>Jointures / fusions de tables</li>
-          <li>Changements de type de données</li>
-          <li>Suppression des colonnes et lignes inutiles</li>
+          <li>Nettoyage, filtres, types, renommages</li>
+          <li>Jointures et fusions de tables</li>
           <li>Agrégations si le volume source est massif</li>
         </ul>
         <ul lang="en">
-          <li>Cleaning, filtering, renaming</li>
+          <li>Cleaning, filters, data types, renaming</li>
           <li>Table joins and merges</li>
-          <li>Data type changes</li>
-          <li>Removing unnecessary columns and rows</li>
           <li>Aggregations if source volume is massive</li>
         </ul>
         <ul lang="es">
-          <li>Limpieza, filtrado, renombrado</li>
+          <li>Limpieza, filtros, tipos de datos, renombrado</li>
           <li>Uniones y combinaciones de tablas</li>
-          <li>Cambios de tipo de datos</li>
-          <li>Eliminación de columnas y filas innecesarias</li>
           <li>Agregaciones si el volumen de origen es masivo</li>
         </ul>
         <p class="stat-label" lang="fr">→ Réduire le volume le plus tôt possible</p>
@@ -782,34 +776,24 @@
         </div>
         <ul lang="fr">
           <li>Agrégations dynamiques (SUM, COUNT, AVERAGE…)</li>
-          <li>Ratios, pourcentages, cumuls</li>
-          <li>Comparaisons N/N-1, YTD, MTD</li>
-          <li>KPIs qui dépendent des filtres et des slicers</li>
-          <li>Tout calcul dont le résultat varie selon le contexte du visuel</li>
+          <li>Ratios, %, cumuls, comparaisons N/N-1</li>
+          <li>Tout calcul qui dépend des filtres et slicers</li>
         </ul>
         <ul lang="en">
           <li>Dynamic aggregations (SUM, COUNT, AVERAGE…)</li>
-          <li>Ratios, percentages, running totals</li>
-          <li>Y/Y, YTD, MTD comparisons</li>
-          <li>KPIs that depend on filters and slicers</li>
-          <li>Any calculation whose result varies with the visual's context</li>
+          <li>Ratios, %, running totals, Y/Y comparisons</li>
+          <li>Any calculation that depends on filters and slicers</li>
         </ul>
         <ul lang="es">
           <li>Agregaciones dinámicas (SUM, COUNT, AVERAGE…)</li>
-          <li>Ratios, porcentajes, acumulados</li>
-          <li>Comparativas N/N-1, YTD, MTD</li>
-          <li>KPIs que dependen de filtros y segmentadores</li>
-          <li>Cualquier cálculo cuyo resultado varía con el contexto del visual</li>
+          <li>Ratios, %, acumulados, comparativas N/N-1</li>
+          <li>Cualquier cálculo que dependa de filtros y segmentadores</li>
         </ul>
         <p class="stat-label" lang="fr">→ Calculer au plus tard, selon le contexte</p>
         <p class="stat-label" lang="en">→ Calculate as late as possible, based on context</p>
         <p class="stat-label" lang="es">→ Calcular lo más tarde posible, según el contexto</p>
       </div>
     </div>
-
-    <blockquote lang="fr">Règle générale : réduire en amont (Power Query, une fois, planifié) — agréger à l'affichage (mesures DAX, à chaque clic, selon les filtres).</blockquote>
-    <blockquote lang="en">General rule: reduce upstream (Power Query, once, scheduled) — aggregate at display time (DAX measures, on every click, based on filters).</blockquote>
-    <blockquote lang="es">Regla general: reducir en origen (Power Query, una vez, programado) — agregar al mostrarse (medidas DAX, en cada clic, según los filtros).</blockquote>
 
     <div class="detail" lang="fr"><strong>Colonne calculée — entre les deux :</strong> une formule DAX évaluée ligne par ligne au moment du chargement (pas à l'affichage), stockée dans le modèle. À utiliser quand la valeur ne dépend pas du contexte de filtre (libellé composé, tranche d'âge, catégorie dérivée) et quand la logique nécessite des relations entre tables — ce qu'on ne peut pas faire dans Power Query seul. Attention : contrairement aux mesures, les colonnes calculées gonflent la taille du fichier .pbix et ralentissent le chargement sur de gros volumes.</div>
     <div class="detail" lang="en"><strong>Calculated column — in between:</strong> a DAX formula evaluated row by row at load time (not at display time), stored in the model. Use it when the value doesn't depend on filter context (composite label, age bracket, derived category) and when the logic requires table relationships — which Power Query alone can't do. Caution: unlike measures, calculated columns inflate the .pbix file size and slow loading on large volumes.</div>
