@@ -260,37 +260,38 @@
     <div class="detail" lang="es">Publicar no significa necesariamente que «todo el mundo en la empresa pueda ver el informe»: se hace en un espacio de trabajo (workspace) con permisos de acceso definidos. Volveremos a esto en la sección de publicación y compartición.</div>
   </section>
 
-  <!-- 4. Section : Vue tabulaire -->
+  <!-- 4. Section : Power Query -->
   <section class="slide section center">
-    <h2 lang="fr">La vue Données</h2>
-    <h2 lang="en">The Data view</h2>
-    <h2 lang="es">La vista de datos</h2>
+    <h2 lang="fr">Power Query</h2>
+    <h2 lang="en">Power Query</h2>
+    <h2 lang="es">Power Query</h2>
   </section>
 
   <!-- 4a -->
   <section class="slide">
-    <span class="eyebrow" lang="fr">Vue Données</span>
-    <span class="eyebrow" lang="en">Data view</span>
-    <span class="eyebrow" lang="es">Vista de datos</span>
+    <span class="eyebrow">Power Query</span>
 
-    <h2 lang="fr">Une table, comme dans Excel — mais transformable</h2>
-    <h2 lang="en">A table, like in Excel — but transformable</h2>
-    <h2 lang="es">Una tabla, como en Excel, pero transformable</h2>
+    <h2 lang="fr">L'éditeur de requêtes : transformer, étape par étape</h2>
+    <h2 lang="en">The query editor: transform, step by step</h2>
+    <h2 lang="es">El editor de consultas: transformar, paso a paso</h2>
 
     <ul lang="fr">
-      <li>La vue Données affiche le résultat des transformations Power Query</li>
-      <li>Chaque colonne a un type explicite (texte, nombre, date...)</li>
-      <li>Le panneau « Étapes appliquées » liste l'historique des transformations</li>
+      <li>Fenêtre dédiée pour importer et préparer les données avant de les charger dans le modèle</li>
+      <li><strong>Aperçu limité</strong> : l'éditeur ne travaille que sur un échantillon des données — pour rester fluide même sur de gros fichiers</li>
+      <li>Chaque transformation = une étape nommée dans le panneau « Étapes appliquées »</li>
+      <li>À la fermeture («&nbsp;Fermer &amp; appliquer&nbsp;»), toutes les étapes se rejouent sur la totalité des données réelles</li>
     </ul>
     <ul lang="en">
-      <li>The Data view shows the result of Power Query transformations</li>
-      <li>Each column has an explicit type (text, number, date...)</li>
-      <li>The "Applied Steps" panel lists the transformation history</li>
+      <li>Dedicated window for importing and preparing data before loading it into the model</li>
+      <li><strong>Preview mode</strong>: the editor only works on a sample of the data — to stay responsive even on large files</li>
+      <li>Each transformation = a named step in the "Applied Steps" panel</li>
+      <li>On close ("Close &amp; Apply"), all steps replay on the full real dataset</li>
     </ul>
     <ul lang="es">
-      <li>La vista Datos muestra el resultado de las transformaciones de Power Query</li>
-      <li>Cada columna tiene un tipo explícito (texto, número, fecha...)</li>
-      <li>El panel «Pasos aplicados» muestra el historial de transformaciones</li>
+      <li>Ventana dedicada para importar y preparar los datos antes de cargarlos en el modelo</li>
+      <li><strong>Vista previa limitada</strong>: el editor trabaja solo con una muestra de los datos, para mantener la fluidez incluso con archivos grandes</li>
+      <li>Cada transformación = un paso con nombre en el panel «Pasos aplicados»</li>
+      <li>Al cerrar («Cerrar y aplicar»), todos los pasos se repiten sobre el total de los datos reales</li>
     </ul>
 
     <div class="detail" lang="fr">Dans Excel, on manipule directement les cellules : on tape une formule, on trie une colonne, on supprime une ligne — et si on recommence le mois suivant avec de nouvelles données, il faut tout refaire à la main. Dans Power Query, chaque action devient une étape réutilisable : le mois suivant, on actualise et toutes les étapes se rejouent automatiquement sur les nouvelles données.</div>
@@ -302,9 +303,7 @@
 
   <!-- 4b -->
   <section class="slide">
-    <span class="eyebrow" lang="fr">Vue Données</span>
-    <span class="eyebrow" lang="en">Data view</span>
-    <span class="eyebrow" lang="es">Vista de datos</span>
+    <span class="eyebrow">Power Query</span>
 
     <h2 lang="fr">Transformations courantes</h2>
     <h2 lang="en">Common transformations</h2>
@@ -344,11 +343,54 @@
     <div class="notes">Démo live : appliquer 2-3 transformations simples et montrer leur effet immédiat sur le panneau des étapes.</div>
   </section>
 
-  <!-- 5. Section : Vue relations -->
+  <!-- 4bis. Section : Power BI Desktop — vue Données -->
   <section class="slide section center">
-    <h2 lang="fr">La vue Modèle</h2>
-    <h2 lang="en">The Model view</h2>
-    <h2 lang="es">La vista de modelo</h2>
+    <h2 lang="fr">Power BI Desktop — vue Données</h2>
+    <h2 lang="en">Power BI Desktop — Data view</h2>
+    <h2 lang="es">Power BI Desktop — vista de Datos</h2>
+  </section>
+
+  <!-- 4bis-a : Vue Données — toutes les lignes, pour explorer -->
+  <section class="slide">
+    <span class="eyebrow" lang="fr">Vue Données</span>
+    <span class="eyebrow" lang="en">Data view</span>
+    <span class="eyebrow" lang="es">Vista de datos</span>
+
+    <h2 lang="fr">Toutes les données sont là — explorez</h2>
+    <h2 lang="en">All data is here — explore it</h2>
+    <h2 lang="es">Todos los datos están aquí — explóralos</h2>
+
+    <ul lang="fr">
+      <li>Contrairement à Power Query (aperçu partiel), la vue Données affiche <strong>toutes</strong> les lignes de chaque table chargée</li>
+      <li>On y vérifie que les transformations ont produit le bon résultat sur la totalité du jeu de données</li>
+      <li>On peut y ajouter des <strong>colonnes calculées</strong> en DAX — sans toucher aux données sources</li>
+      <li>Point d'appui pour comprendre la structure avant de passer à la vue Modèle</li>
+    </ul>
+    <ul lang="en">
+      <li>Unlike Power Query (partial preview), the Data view shows <strong>all</strong> rows of each loaded table</li>
+      <li>Use it to verify that transformations produced the right result across the full dataset</li>
+      <li>You can add <strong>calculated columns</strong> in DAX here — without touching source data</li>
+      <li>Good starting point for understanding the structure before moving to the Model view</li>
+    </ul>
+    <ul lang="es">
+      <li>A diferencia de Power Query (vista previa parcial), la vista Datos muestra <strong>todas</strong> las filas de cada tabla cargada</li>
+      <li>Se usa para verificar que las transformaciones han producido el resultado correcto sobre el total del conjunto de datos</li>
+      <li>Se pueden añadir <strong>columnas calculadas</strong> en DAX sin tocar los datos de origen</li>
+      <li>Punto de partida para entender la estructura antes de pasar a la vista Modelo</li>
+    </ul>
+
+    <div class="detail" lang="fr">Parallèle Excel : si Power Query est votre cuisine (où vous préparez les données), la vue Données est le plat fini — vous voyez exactement ce que vous allez mettre sur la table. À noter : une <strong>colonne calculée</strong> (créée ici) est calculée ligne par ligne et stockée dans le modèle, à la différence d'une <strong>mesure</strong> (calculée dynamiquement selon le contexte du visuel). On préfère les mesures pour les agrégats (somme, ratio...) et les colonnes calculées pour enrichir une table (catégorie dérivée, libellé composé...).</div>
+    <div class="detail" lang="en">Excel parallel: if Power Query is your kitchen (where you prepare the data), the Data view is the finished dish — you see exactly what you're putting on the table. Note: a <strong>calculated column</strong> (created here) is computed row by row and stored in the model, unlike a <strong>measure</strong> (which is computed dynamically based on the visual's context). Measures are preferred for aggregates (sum, ratio...) and calculated columns for enriching a table (derived category, composite label...).</div>
+    <div class="detail" lang="es">Paralelismo con Excel: si Power Query es su cocina (donde se preparan los datos), la vista Datos es el plato terminado — se ve exactamente lo que se va a poner sobre la mesa. Nota: una <strong>columna calculada</strong> (creada aquí) se calcula fila a fila y se almacena en el modelo, a diferencia de una <strong>medida</strong> (que se calcula dinámicamente según el contexto del visual). Las medidas se prefieren para los agregados (suma, ratio...) y las columnas calculadas para enriquecer una tabla (categoría derivada, etiqueta compuesta...).</div>
+
+    <div class="notes">Démo live : fermer Power Query ("Fermer &amp; appliquer"), revenir dans Power BI Desktop et montrer la vue Données — "vous voyez maintenant toutes les lignes".</div>
+  </section>
+
+  <!-- 5. Section : Power BI Desktop — vue Modèle -->
+  <section class="slide section center">
+    <h2 lang="fr">Power BI Desktop — vue Modèle</h2>
+    <h2 lang="en">Power BI Desktop — Model view</h2>
+    <h2 lang="es">Power BI Desktop — vista de Modelo</h2>
   </section>
 
   <!-- 5a -->
@@ -422,11 +464,11 @@
     <div class="detail" lang="es">¿Por qué no usar una sola tabla «plana» con todo dentro (como se haría espontáneamente en Excel)? Porque rápidamente se vuelve enorme, redundante (la misma información repetida en cada fila), lenta y difícil de evolucionar. El modelo en estrella evita estas repeticiones y ofrece un rendimiento mucho mejor con grandes volúmenes. La granularidad (el nivel de detalle de una fila de la tabla de hechos) debe elegirse de forma consciente desde el diseño.</div>
   </section>
 
-  <!-- 6. Section : Vue rapport -->
+  <!-- 6. Section : Power BI Desktop — vue Rapport -->
   <section class="slide section center">
-    <h2 lang="fr">La vue Rapport</h2>
-    <h2 lang="en">The Report view</h2>
-    <h2 lang="es">La vista de informe</h2>
+    <h2 lang="fr">Power BI Desktop — vue Rapport</h2>
+    <h2 lang="en">Power BI Desktop — Report view</h2>
+    <h2 lang="es">Power BI Desktop — vista de Informe</h2>
   </section>
 
   <!-- 6a -->
