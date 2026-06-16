@@ -43,9 +43,18 @@
     </div>
   </div>
 
+  <!-- Breadcrumb des sections (en-tête gauche, rempli par JS) -->
+  <nav class="section-breadcrumb" aria-label="Sections"></nav>
+
   <!-- Barre de progression + compteur de slides -->
   <div class="progress-bar"></div>
-  <div class="slide-counter"><span data-current>1</span> / <span data-total>1</span></div>
+  <div class="slide-counter">
+    <button type="button" class="counter-nav" data-go="-1" aria-label="Précédente / Previous">▲</button>
+    <span data-current contenteditable="true" inputmode="numeric" spellcheck="false">1</span>
+    <span aria-hidden="true">/</span>
+    <span data-total>1</span>
+    <button type="button" class="counter-nav" data-go="1" aria-label="Suivante / Next">▼</button>
+  </div>
 
   <!-- 1. Titre -->
   <section class="slide title center">
@@ -852,22 +861,87 @@
     var current = 0;
     function setCurrent(index) {
       current = index;
-      counterCurrent.textContent = index + 1;
+      if (document.activeElement !== counterCurrent) {
+        counterCurrent.textContent = index + 1;
+      }
       progressBar.style.width = ((index + 1) / slides.length * 100) + '%';
+    }
+
+    // Breadcrumb des sections principales
+    var sectionSlides = slides.filter(function(s) { return s.classList.contains('section'); });
+    var breadcrumb = document.querySelector('.section-breadcrumb');
+    if (breadcrumb && sectionSlides.length) {
+      sectionSlides.forEach(function(s) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'section-btn';
+        ['fr', 'en', 'es'].forEach(function(l) {
+          var h2 = s.querySelector('h2[lang="' + l + '"]');
+          if (h2) {
+            var sp = document.createElement('span');
+            sp.setAttribute('lang', l);
+            sp.textContent = h2.textContent.trim();
+            btn.appendChild(sp);
+          }
+        });
+        btn.addEventListener('click', function() {
+          s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        breadcrumb.appendChild(btn);
+      });
+    }
+
+    function updateActiveSectionBtn(idx) {
+      if (!breadcrumb || !sectionSlides.length) return;
+      var activeIdx = -1;
+      for (var j = sectionSlides.length - 1; j >= 0; j--) {
+        if (slides.indexOf(sectionSlides[j]) <= idx) { activeIdx = j; break; }
+      }
+      document.querySelectorAll('.section-btn').forEach(function(btn, i) {
+        btn.classList.toggle('active', i === activeIdx);
+      });
     }
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          setCurrent(slides.indexOf(entry.target));
+          var idx = slides.indexOf(entry.target);
+          setCurrent(idx);
+          updateActiveSectionBtn(idx);
         }
       });
     }, { threshold: 0.5 });
     slides.forEach(function (slide) { observer.observe(slide); });
     setCurrent(0);
 
-    // Navigation clavier : flèches / PageUp/PageDown pour aller à la slide suivante/précédente
+    // Flèches haut/bas du compteur
+    document.querySelectorAll('.counter-nav').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var dir = parseInt(btn.getAttribute('data-go'), 10);
+        slides[Math.max(0, Math.min(slides.length - 1, current + dir))].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Numéro de slide éditable (cliquer pour saisir, Entrée/blur pour naviguer)
+    counterCurrent.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); this.blur(); return; }
+      if (!/^\d$/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+        e.preventDefault();
+      }
+    });
+    counterCurrent.addEventListener('blur', function() {
+      var n = parseInt(this.textContent.trim(), 10);
+      if (n >= 1 && n <= slides.length) {
+        slides[n - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        this.textContent = current + 1;
+      }
+    });
+
+    // Navigation clavier (désactivée si focus sur un élément interactif)
     document.addEventListener('keydown', function (e) {
+      var active = document.activeElement;
+      if (active && (active.tagName === 'BUTTON' || active.contentEditable === 'true')) return;
       if (['ArrowDown', 'PageDown', ' '].indexOf(e.key) !== -1) {
         e.preventDefault();
         slides[Math.min(current + 1, slides.length - 1)].scrollIntoView({ behavior: 'smooth', block: 'start' });
