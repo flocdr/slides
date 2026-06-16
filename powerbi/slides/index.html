@@ -867,27 +867,50 @@
       progressBar.style.width = ((index + 1) / slides.length * 100) + '%';
     }
 
-    // Breadcrumb des sections principales
+    // Stepper "metro line" des sections
     var sectionSlides = slides.filter(function(s) { return s.classList.contains('section'); });
     var breadcrumb = document.querySelector('.section-breadcrumb');
     if (breadcrumb && sectionSlides.length) {
-      sectionSlides.forEach(function(s) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'section-btn';
+      sectionSlides.forEach(function(s, i) {
+        if (i > 0) {
+          var line = document.createElement('div');
+          line.className = 'metro-line';
+          breadcrumb.appendChild(line);
+        }
+        var station = document.createElement('div');
+        station.className = 'metro-station';
+
+        var dot = document.createElement('div');
+        dot.className = 'metro-dot';
+
+        var label = document.createElement('span');
+        label.className = 'metro-label';
+
+        var tooltip = document.createElement('span');
+        tooltip.className = 'metro-tooltip';
+
         ['fr', 'en', 'es'].forEach(function(l) {
           var h2 = s.querySelector('h2[lang="' + l + '"]');
           if (h2) {
-            var sp = document.createElement('span');
-            sp.setAttribute('lang', l);
-            sp.textContent = h2.textContent.trim();
-            btn.appendChild(sp);
+            var text = h2.textContent.trim();
+            var lsp = document.createElement('span');
+            lsp.setAttribute('lang', l);
+            lsp.textContent = text;
+            label.appendChild(lsp);
+            var tsp = document.createElement('span');
+            tsp.setAttribute('lang', l);
+            tsp.textContent = text;
+            tooltip.appendChild(tsp);
           }
         });
-        btn.addEventListener('click', function() {
+
+        station.appendChild(dot);
+        station.appendChild(label);
+        station.appendChild(tooltip);
+        station.addEventListener('click', function() {
           s.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
-        breadcrumb.appendChild(btn);
+        breadcrumb.appendChild(station);
       });
     }
 
@@ -897,8 +920,12 @@
       for (var j = sectionSlides.length - 1; j >= 0; j--) {
         if (slides.indexOf(sectionSlides[j]) <= idx) { activeIdx = j; break; }
       }
-      document.querySelectorAll('.section-btn').forEach(function(btn, i) {
-        btn.classList.toggle('active', i === activeIdx);
+      document.querySelectorAll('.metro-station').forEach(function(st, i) {
+        st.classList.toggle('active', i === activeIdx);
+        st.classList.toggle('passed', i < activeIdx);
+      });
+      document.querySelectorAll('.metro-line').forEach(function(l, i) {
+        l.classList.toggle('passed', i < activeIdx);
       });
     }
 

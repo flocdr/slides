@@ -528,46 +528,158 @@ blockquote {
   color: var(--text);
 }
 
-/* ---------- Section breadcrumb (en-tête gauche) ---------- */
+/* ---------- Stepper "metro line" (en-tête gauche) ---------- */
+/* Conteneur fixé sur left:16px, right:350px → s'étire jusqu'aux contrôles. */
 
 .section-breadcrumb {
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: 0;
+  left: 0;
+  right: 350px;
   z-index: 100;
   display: flex;
   align-items: center;
-  gap: 6px;
-  max-width: 50vw;
-  overflow-x: auto;
-  scrollbar-width: none;
+  height: 56px;
+  padding: 0 16px;
+  overflow: visible;
+  pointer-events: none;
 }
-.section-breadcrumb::-webkit-scrollbar { display: none; }
 
-.section-btn {
+.metro-station {
   flex: none;
-  padding: 5px 11px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  font-family: var(--font-sans);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--bg);
-  color: var(--text-muted);
-  box-shadow: var(--shadow-sm);
+  position: relative;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  white-space: nowrap;
-  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  pointer-events: auto;
 }
-.section-btn:hover {
-  border-color: var(--accent);
-  color: var(--text);
+
+.metro-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s, opacity 0.2s;
 }
-.section-btn.active {
+
+.metro-station.passed .metro-dot {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--accent-contrast);
+  opacity: 0.4;
+}
+
+.metro-station.active .metro-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.5);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.metro-station:not(.active):hover .metro-dot {
+  border-color: var(--accent);
+  transform: scale(1.25);
+  opacity: 1;
+}
+
+.metro-line {
+  flex: 1;
+  height: 2px;
+  min-width: 10px;
+  background: var(--border);
+  transition: background 0.2s, opacity 0.2s;
+  pointer-events: none;
+}
+
+.metro-line.passed {
+  background: var(--accent);
+  opacity: 0.35;
+}
+
+/* Label affiché sous le point actif */
+.metro-label {
+  display: none;
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  pointer-events: none;
+}
+
+.metro-station.active .metro-label {
+  display: block;
+}
+
+/* Tooltip élégant pour les stations non actives */
+.metro-tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+.metro-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: var(--text);
+}
+
+.metro-station:not(.active):hover .metro-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Rogne le tooltip pour les stations en bord de ligne */
+.section-breadcrumb > div:first-child .metro-tooltip {
+  left: 0;
+  transform: translateY(-4px);
+}
+.section-breadcrumb > div:first-child:not(.active):hover .metro-tooltip {
+  transform: translateY(0);
+}
+.section-breadcrumb > div:first-child .metro-tooltip::before {
+  left: 10px;
+  transform: none;
+}
+.section-breadcrumb > div:last-child .metro-tooltip {
+  left: auto;
+  right: 0;
+  transform: translateY(-4px);
+}
+.section-breadcrumb > div:last-child:not(.active):hover .metro-tooltip {
+  transform: translateY(0);
+}
+.section-breadcrumb > div:last-child .metro-tooltip::before {
+  left: auto;
+  right: 10px;
+  transform: none;
 }
 
 /* ---------- Responsive ---------- */
