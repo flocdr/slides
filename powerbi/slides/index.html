@@ -242,48 +242,24 @@
 
       <div class="eco-arrow">→</div>
 
-      <!-- Power BI Desktop zone -->
-      <div class="eco-zone">
-        <div class="eco-zone-label">Power BI Desktop</div>
-        <div class="eco-zone-inner">
-          <div class="eco-box eco-box-hi">
-            <b>Power Query</b>
-            <small lang="fr">Transformation</small><small lang="en">Transformation</small><small lang="es">Transformación</small>
-            <span class="eco-badge eco-scheduled" lang="fr">⏱ Planifié</span>
-            <span class="eco-badge eco-scheduled" lang="en">⏱ Scheduled</span>
-            <span class="eco-badge eco-scheduled" lang="es">⏱ Programado</span>
-          </div>
-          <div class="eco-arrow-sm">→</div>
-          <div class="eco-box eco-box-hi">
-            <b lang="fr">Modèle</b><b lang="en">Model</b><b lang="es">Modelo</b>
-            <small lang="fr">Relations &amp; DAX</small><small lang="en">Relationships &amp; DAX</small><small lang="es">Relaciones &amp; DAX</small>
-            <span class="eco-badge eco-scheduled" lang="fr">⏱ Planifié</span>
-            <span class="eco-badge eco-scheduled" lang="en">⏱ Scheduled</span>
-            <span class="eco-badge eco-scheduled" lang="es">⏱ Programado</span>
-          </div>
-          <div class="eco-arrow-sm">→</div>
-          <div class="eco-box">
-            <b lang="fr">Rapport</b><b lang="en">Report</b><b lang="es">Informe</b>
-            <small lang="fr">Visuels / DAX mesures</small><small lang="en">Visuals / DAX measures</small><small lang="es">Visuales / Medidas DAX</small>
-            <span class="eco-badge eco-rt" lang="fr">⚡ Temps réel</span>
-            <span class="eco-badge eco-rt" lang="en">⚡ Real-time</span>
-            <span class="eco-badge eco-rt" lang="es">⚡ Tiempo real</span>
-          </div>
-        </div>
+      <!-- Power Query -->
+      <div class="eco-box eco-box-hi">
+        <b>Power Query</b>
+        <small lang="fr">Transformation</small><small lang="en">Transformation</small><small lang="es">Transformación</small>
+        <span class="eco-badge eco-scheduled" lang="fr">⏱ Planifié</span>
+        <span class="eco-badge eco-scheduled" lang="en">⏱ Scheduled</span>
+        <span class="eco-badge eco-scheduled" lang="es">⏱ Programado</span>
       </div>
 
       <div class="eco-arrow">→</div>
 
-      <!-- Power BI Service zone -->
-      <div class="eco-zone eco-zone-svc">
-        <div class="eco-zone-label">Power BI Service</div>
-        <div class="eco-box">
-          <b>Workspace / App</b>
-          <small lang="fr">Rapports publiés</small><small lang="en">Published reports</small><small lang="es">Informes publicados</small>
-          <span class="eco-badge eco-scheduled" lang="fr">⏱ Actualisation planifiée</span>
-          <span class="eco-badge eco-scheduled" lang="en">⏱ Scheduled refresh</span>
-          <span class="eco-badge eco-scheduled" lang="es">⏱ Actualización programada</span>
-        </div>
+      <!-- Rapport -->
+      <div class="eco-box">
+        <b lang="fr">Rapport</b><b lang="en">Report</b><b lang="es">Informe</b>
+        <small lang="fr">Visuels &amp; mesures DAX</small><small lang="en">Visuals &amp; DAX measures</small><small lang="es">Visuales &amp; medidas DAX</small>
+        <span class="eco-badge eco-rt" lang="fr">⚡ Temps réel</span>
+        <span class="eco-badge eco-rt" lang="en">⚡ Real-time</span>
+        <span class="eco-badge eco-rt" lang="es">⚡ Tiempo real</span>
       </div>
 
       <div class="eco-arrow">→</div>
@@ -292,16 +268,13 @@
       <div class="eco-box eco-users">
         <b lang="fr">Utilisateurs</b><b lang="en">Users</b><b lang="es">Usuarios</b>
         <small lang="fr">Navigateur / Mobile</small><small lang="en">Browser / Mobile</small><small lang="es">Navegador / Móvil</small>
-        <span class="eco-badge eco-rt" lang="fr">⚡ À la demande</span>
-        <span class="eco-badge eco-rt" lang="en">⚡ On demand</span>
-        <span class="eco-badge eco-rt" lang="es">⚡ Bajo demanda</span>
       </div>
 
     </div><!-- .eco-wrap -->
 
-    <div class="detail" lang="fr"><strong>Deux temporalités fondamentales :</strong> les données sont préparées et chargées en amont (Power Query + Modèle) lors de l'actualisation planifiée — puis les mesures DAX sont calculées à la volée au moment de l'affichage, selon le contexte de filtre de chaque visuel. La frontière Desktop / Service est tout aussi importante : Desktop est l'outil de construction local ; Service est le guichet toujours en ligne accessible aux utilisateurs finaux, qui pilote aussi l'actualisation automatique des sources.</div>
-    <div class="detail" lang="en"><strong>Two fundamental time frames:</strong> data is prepared and loaded upstream (Power Query + Model) during the scheduled refresh — then DAX measures are calculated on the fly at display time, based on each visual's filter context. The Desktop / Service boundary is equally important: Desktop is the local construction tool; Service is the always-online portal accessible to end users, and also drives the automatic refresh of data sources.</div>
-    <div class="detail" lang="es"><strong>Dos temporalidades fundamentales:</strong> los datos se preparan y cargan previamente (Power Query + Modelo) durante la actualización programada, y luego las medidas DAX se calculan al vuelo en el momento de mostrarse, según el contexto de filtro de cada visual. La frontera Desktop / Service es igualmente importante: Desktop es la herramienta de construcción local; Service es la ventanilla siempre en línea accesible a los usuarios finales, y también gestiona la actualización automática de los datos de origen.</div>
+    <div class="detail" lang="fr"><strong>Deux temporalités fondamentales :</strong> Power Query s'exécute lors de l'actualisation planifiée — une fois par jour par exemple — et produit des tables de données propres. Les mesures DAX dans le rapport, elles, sont recalculées à chaque clic, en temps réel, selon le contexte de filtre de chaque visuel.</div>
+    <div class="detail" lang="en"><strong>Two fundamental time frames:</strong> Power Query runs during the scheduled refresh — once a day, for example — and produces clean data tables. DAX measures in the report, on the other hand, are recalculated on every click, in real time, based on each visual's filter context.</div>
+    <div class="detail" lang="es"><strong>Dos temporalidades fundamentales:</strong> Power Query se ejecuta durante la actualización programada — una vez al día, por ejemplo — y produce tablas de datos limpias. Las medidas DAX en el informe, en cambio, se recalculan en cada clic, en tiempo real, según el contexto de filtro de cada visual.</div>
 
     <div class="notes">Ce schéma est le fil conducteur — revenir dessus à chaque transition entre les grandes sections. Insister sur les deux temporalités : refresh planifié (Power Query / Modèle) vs calcul temps réel à l'affichage (mesures DAX dans le rapport).</div>
   </section>
