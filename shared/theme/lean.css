@@ -623,7 +623,7 @@ blockquote {
 }
 
 .metro-station.active .metro-label {
-  display: block;
+  display: none;
 }
 
 /* Première station : ancrage à gauche pour éviter le débordement hors-écran */
@@ -664,7 +664,7 @@ blockquote {
   border-bottom-color: var(--text);
 }
 
-.metro-station:not(.active):hover .metro-tooltip {
+.metro-station:hover .metro-tooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
@@ -674,7 +674,7 @@ blockquote {
   left: 0;
   transform: translateY(-4px);
 }
-.section-breadcrumb > div:first-child:not(.active):hover .metro-tooltip {
+.section-breadcrumb > div:first-child:hover .metro-tooltip {
   transform: translateY(0);
 }
 .section-breadcrumb > div:first-child .metro-tooltip::before {
@@ -686,7 +686,7 @@ blockquote {
   right: 0;
   transform: translateY(-4px);
 }
-.section-breadcrumb > div:last-child:not(.active):hover .metro-tooltip {
+.section-breadcrumb > div:last-child:hover .metro-tooltip {
   transform: translateY(0);
 }
 .section-breadcrumb > div:last-child .metro-tooltip::before {
