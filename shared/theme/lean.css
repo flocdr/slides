@@ -490,18 +490,11 @@ blockquote {
   background: var(--bg-alt);
 }
 
-/* ---------- Progress bar / slide counter ---------- */
-/* La barre de progression est positionnée en bas du .deck-header (absolute).
-   Elle s'étend de gauche à droite au fil des slides (géré en JS). */
+/* ---------- Progress bar ---------- */
+/* Masquée : la progression est portée par les metro-lines du stepper. */
 
 .progress-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: var(--accent);
-  transition: width 0.2s ease;
+  display: none;
 }
 
 .slide-counter {
@@ -601,16 +594,15 @@ blockquote {
 
 .metro-line {
   flex: 1;
-  height: 2px;
+  height: 3px;
   min-width: 10px;
   background: var(--border);
-  transition: background 0.2s, opacity 0.2s;
+  transition: background 0.2s;
   pointer-events: none;
 }
 
 .metro-line.passed {
   background: var(--accent);
-  opacity: 0.35;
 }
 
 /* Label affiché sous le point actif */

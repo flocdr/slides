@@ -930,7 +930,19 @@
         st.classList.toggle('passed', i < activeIdx);
       });
       document.querySelectorAll('.metro-line').forEach(function(l, i) {
-        l.classList.toggle('passed', i < activeIdx);
+        if (i < activeIdx) {
+          l.classList.add('passed');
+          l.style.background = '';
+        } else if (i === activeIdx) {
+          l.classList.remove('passed');
+          var from = slides.indexOf(sectionSlides[i]);
+          var to = (i + 1 < sectionSlides.length) ? slides.indexOf(sectionSlides[i + 1]) : slides.length;
+          var pct = Math.round((idx - from) / (to - from) * 100);
+          l.style.background = 'linear-gradient(to right, var(--accent) ' + pct + '%, var(--border) ' + pct + '%)';
+        } else {
+          l.classList.remove('passed');
+          l.style.background = '';
+        }
       });
     }
 
