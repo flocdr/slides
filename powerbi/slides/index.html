@@ -24,30 +24,35 @@
   </style>
 </head>
 <body>
-  <!-- Switcher langue (FR/EN/ES) + mode sombre + niveau de détail. Toujours conserver ce bloc. -->
-  <div class="deck-controls">
-    <a class="home-link" href="../../index.html" aria-label="Retour à l'accueil / Back to home / Volver al inicio" title="Retour à l'accueil / Back to home / Volver al inicio">🏠</a>
-    <div class="lang-switch" role="group" aria-label="Langue / Language / Idioma">
-      <button type="button" data-set-lang="fr" aria-pressed="true">FR</button>
-      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
-      <button type="button" data-set-lang="es" aria-pressed="false">ES</button>
-    </div>
-    <button type="button" class="theme-switch" data-toggle-theme aria-label="Basculer le mode sombre / Toggle dark mode">🌙</button>
-    <div class="detail-switch" role="group" aria-label="Niveau de détail / Detail level / Nivel de detalle">
-      <button type="button" data-set-detail="light" aria-pressed="true">
-        <span lang="fr">Résumé</span><span lang="en">Summary</span><span lang="es">Resumen</span>
-      </button>
-      <button type="button" data-set-detail="full" aria-pressed="false">
-        <span lang="fr">Détails</span><span lang="en">Details</span><span lang="es">Detalles</span>
-      </button>
-    </div>
-  </div>
+  <!-- En-tête fixe : stepper à gauche, contrôles à droite, barre de progression en bas -->
+  <header class="deck-header">
+    <!-- Breadcrumb des sections (en-tête gauche, rempli par JS) -->
+    <nav class="section-breadcrumb" aria-label="Sections"></nav>
 
-  <!-- Breadcrumb des sections (en-tête gauche, rempli par JS) -->
-  <nav class="section-breadcrumb" aria-label="Sections"></nav>
+    <!-- Switcher langue (FR/EN/ES) + mode sombre + niveau de détail. Toujours conserver ce bloc. -->
+    <div class="deck-controls">
+      <a class="home-link" href="../../index.html" aria-label="Retour à l'accueil / Back to home / Volver al inicio" title="Retour à l'accueil / Back to home / Volver al inicio">🏠</a>
+      <div class="lang-switch" role="group" aria-label="Langue / Language / Idioma">
+        <button type="button" data-set-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-set-lang="es" aria-pressed="false">ES</button>
+      </div>
+      <button type="button" class="theme-switch" data-toggle-theme aria-label="Basculer le mode sombre / Toggle dark mode">🌙</button>
+      <div class="detail-switch" role="group" aria-label="Niveau de détail / Detail level / Nivel de detalle">
+        <button type="button" data-set-detail="light" aria-pressed="true">
+          <span lang="fr">Résumé</span><span lang="en">Summary</span><span lang="es">Resumen</span>
+        </button>
+        <button type="button" data-set-detail="full" aria-pressed="false">
+          <span lang="fr">Détails</span><span lang="en">Details</span><span lang="es">Detalles</span>
+        </button>
+      </div>
+    </div>
 
-  <!-- Barre de progression + compteur de slides -->
-  <div class="progress-bar"></div>
+    <!-- Barre de progression (intégrée en bas du header, gérée en JS) -->
+    <div class="progress-bar"></div>
+  </header>
+
+  <!-- Compteur de slides (bas-droite) -->
   <div class="slide-counter">
     <button type="button" class="counter-nav" data-go="-1" aria-label="Précédente / Previous">▲</button>
     <span data-current contenteditable="true" inputmode="numeric" spellcheck="false">1</span>

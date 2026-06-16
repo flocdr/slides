@@ -399,13 +399,31 @@ blockquote {
   display: none;
 }
 
+/* ---------- Deck header (stepper + controls + progress) ---------- */
+/* Barre fixe en haut regroupant stepper gauche, contrôles droite, et barre de
+   progression intégrée au bas. Les slides scrollent en dessous (z-index 200). */
+
+.deck-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 56px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 16px;
+  overflow: visible;
+}
+
 /* ---------- Deck controls (switcher langue / thème / détail) ---------- */
 
 .deck-controls {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 100;
+  flex-shrink: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -473,16 +491,16 @@ blockquote {
 }
 
 /* ---------- Progress bar / slide counter ---------- */
-/* Indicateur de position dans le deck, géré en JS simple (IntersectionObserver). */
+/* La barre de progression est positionnée en bas du .deck-header (absolute).
+   Elle s'étend de gauche à droite au fil des slides (géré en JS). */
 
 .progress-bar {
-  position: fixed;
-  top: 0;
+  position: absolute;
+  bottom: 0;
   left: 0;
   height: 3px;
   width: 0%;
   background: var(--accent);
-  z-index: 101;
   transition: width 0.2s ease;
 }
 
@@ -529,24 +547,23 @@ blockquote {
 }
 
 /* ---------- Stepper "metro line" (en-tête gauche) ---------- */
-/* Conteneur fixé sur left:16px, right:350px → s'étire jusqu'aux contrôles. */
+/* Positionné en flex:1 dans .deck-header → occupe tout l'espace à gauche
+   des contrôles, sans déborder dessus. */
 
 .section-breadcrumb {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 350px;
-  z-index: 100;
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
-  height: 56px;
-  padding: 0 16px;
+  height: 100%;
+  padding: 0 8px;
   overflow: visible;
   pointer-events: none;
 }
 
 .metro-station {
   flex: none;
+  align-self: stretch;
   position: relative;
   display: flex;
   align-items: center;
@@ -573,9 +590,7 @@ blockquote {
 .metro-station.active .metro-dot {
   background: var(--accent);
   border-color: var(--accent);
-  transform: scale(1.5);
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  transform: scale(1.2);
 }
 
 .metro-station:not(.active):hover .metro-dot {
@@ -602,7 +617,7 @@ blockquote {
 .metro-label {
   display: none;
   position: absolute;
-  top: calc(100% + 7px);
+  top: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%);
   font-size: 10px;
@@ -617,6 +632,12 @@ blockquote {
 
 .metro-station.active .metro-label {
   display: block;
+}
+
+/* Première station : ancrage à gauche pour éviter le débordement hors-écran */
+.section-breadcrumb > .metro-station:first-child .metro-label {
+  left: 0;
+  transform: none;
 }
 
 /* Tooltip élégant pour les stations non actives */
@@ -693,6 +714,7 @@ blockquote {
     grid-template-columns: 1fr;
   }
   .section-breadcrumb { display: none; }
+  .deck-header { gap: 8px; padding: 0 8px; }
 }
 
 /* ---------- Print / PDF export ---------- */
@@ -710,9 +732,7 @@ blockquote {
     min-height: 100vh;
     page-break-after: always;
   }
-  .deck-controls,
-  .section-breadcrumb,
-  .progress-bar,
+  .deck-header,
   .slide-counter {
     display: none !important;
   }
